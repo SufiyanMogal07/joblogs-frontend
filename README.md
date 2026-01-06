@@ -49,7 +49,6 @@ Deployment and screenshots will be added after backend
 
    ```bash
    git clone https://github.com/SufiyanMogal07/joblogs-frontend.git
-   cd jobs-tracker-frontend
    ```
 
 2. Install dependencies
