@@ -9,8 +9,7 @@ A separate backend using Node.js, Express, PostgreSQL, and Prisma is currently i
 
 ## Demo
 
-Deployment and screenshots will be added after backend integration.
-
+Deployment and screenshots will be added after backend 
 ---
 
 ## Features
