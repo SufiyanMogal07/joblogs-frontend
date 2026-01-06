@@ -31,7 +31,7 @@ export default function Home() {
     setEditData(null);
   };
 
-  const openNotesModal = (id) => {
+  const openNotesModal = (id: string) => {
     setNotesId(id);
     setNotesModalOpen(true);
   };

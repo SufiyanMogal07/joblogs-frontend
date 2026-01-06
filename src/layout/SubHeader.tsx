@@ -7,7 +7,7 @@ type SubHeaderProps = {
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
   filter: string;
-  setFilter: Dispatch<SetStateAction<string>>;
+  setFilter: Dispatch<SetStateAction<JobStatus>>;
 };
 
 const SubHeader: React.FC<SubHeaderProps> = ({
@@ -35,7 +35,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
           <span className="text-[16px]">Status Filter: </span>
           <select
             id="jobStatus"
-            onChange={(e) => setFilter(e.target.value)}
+            onChange={(e) => setFilter(e.target.value as JobStatus)}
             value={filter}
           >
             <option defaultChecked value={""}>
