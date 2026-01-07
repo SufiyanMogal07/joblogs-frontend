@@ -6,10 +6,6 @@ This repository contains the frontend MVP.
 A separate backend using Node.js, Express, PostgreSQL, and Prisma is currently in progress.
 
 ---
-
-## Demo Video
-[https://github.com/user-attachments/assets/1ce20252-99eb-414c-be71-21cc65422241](url)
-
 Deployment and screenshots will be added after backend 
 ---
 
