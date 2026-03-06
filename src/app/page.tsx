@@ -1,12 +1,12 @@
 "use client";
-import JobModal from "@/components/form/JobModal";
-import JobPage from "@/components/jobs/JobPage";
-import NotesModal from "@/components/NotesModal";
+import JobPage from "@/components/features/jobs/JobPage";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import Header from "@/layout/Header";
-import SubHeader from "@/layout/SubHeader";
+import Header from "@/components/shared/layout/Header";
+import SubHeader from "@/components/shared/layout/SubHeader";
 import { JobApplication, JobStatus } from "@/types";
 import { useState } from "react";
+import NotesModal from "@/components/features/jobs/NotesModal";
+import JobModal from "@/components/features/jobs/JobModal";
 
 export default function Home() {
   const [jobs, setJobs] = useLocalStorage<JobApplication[]>("jobs", []);
@@ -96,7 +96,7 @@ export default function Home() {
   return (
     <div className="relative">
       <div className="sticky top-0 md:top-3 z-50">
-        <Header jobs={jobs} handleModalOpen={handleModalOpen} />
+        <Header handleModalOpen={handleModalOpen} />
         <div>
           <SubHeader
             searchQuery={searchQuery}

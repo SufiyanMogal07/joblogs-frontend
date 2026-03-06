@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import JobCard from "./JobCard";
 import { JobApplication } from "@/types";
-import { Briefcase, BriefcaseBusiness, PlusCircleIcon } from "lucide-react";
-import { useFieldArray } from "react-hook-form";
-import JobCardSkeleton from "./JobCardSkeleton";
+import { BriefcaseBusiness, PlusCircleIcon } from "lucide-react";
+import JobCardSkeleton from "@/components/ui/JobCardSkeleton";
+
 
 type JobPageProps = {
   jobs: JobApplication[];

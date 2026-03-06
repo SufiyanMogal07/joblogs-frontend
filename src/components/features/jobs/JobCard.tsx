@@ -1,6 +1,6 @@
 import { JobApplication } from "@/types";
 import { formatDate, getStatusBadgeCss } from "@/utils";
-import { ArrowDown, Calendar1, Edit, Star, Trash2 } from "lucide-react";
+import { Calendar1, Edit, Star, Trash2 } from "lucide-react";
 import React from "react";
 
 type JobCardProps = {

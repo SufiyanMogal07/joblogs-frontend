@@ -1,14 +1,13 @@
 import { JobApplication } from "@/types";
-import { PlusCircle, PlusIcon, PlusSquare } from "lucide-react";
+import { PlusSquare } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 type HeaderProps = {
-  jobs: JobApplication[];
   handleModalOpen: (data?: JobApplication) => void;
 };
 
-const Header: React.FC<HeaderProps> = ({ jobs, handleModalOpen }) => {
+const Header: React.FC<HeaderProps> = ({ handleModalOpen }) => {
   return (
     <header className="header flex items-center justify-between">
       <div className="w-38 h-20 relative">

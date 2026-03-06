@@ -8,12 +8,12 @@ import {
   Star,
   X,
 } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { JobStatusList as jobstatus } from "@/utils";
 import { JobApplication } from "@/types";
 import { v4 as uuidv4 } from "uuid";
-import Modal from "../Modal";
+import Modal from "../../shared/others/Modal";
 
 type JobModalProps = {
   isEdit?: boolean;

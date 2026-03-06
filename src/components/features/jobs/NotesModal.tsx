@@ -1,5 +1,4 @@
-import React from "react";
-import Modal from "./Modal";
+import Modal from "@/components/shared/others/Modal";
 import { X } from "lucide-react";
 
 type NotesModalProps = {
