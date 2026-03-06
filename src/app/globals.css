@@ -10,24 +10,38 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
+/* Input's and Modal's Scroll css */
 input[type='date']::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
-
-.notes-modal::-webkit-scrollbar, #jobForm::-webkit-scrollbar {
+@layer base {
+.notes-modal::-webkit-scrollbar,
+#jobForm::-webkit-scrollbar {
   width: 8px;
 }
 
-.notes-modal::-webkit-scrollbar-thumb , #jobForm::-webkit-scrollbar-thumb {
+.notes-modal::-webkit-scrollbar-thumb,
+#jobForm::-webkit-scrollbar-thumb {
   background: gray;
   border-radius: 4px;
 }
 
-.notes-modal::-webkit-scrollbar-track, #jobForm::-webkit-scrollbar-track {
+.notes-modal::-webkit-scrollbar-track,
+#jobForm::-webkit-scrollbar-track {
   background: rgb(82, 82, 82);
   border-radius: 4px;
 }
+}
 
+/* auth login and register css */
+@layer base {
+  .auth-btn {
+    @apply w-full mt-6 px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold rounded-lg transition-colors duration-200 disabled:bg-indigo-600;
+  }
+}
+
+/* layout and auth/job form css */
 @layer base {
   .header {
     @apply bg-slate-900/80 backdrop-blur-sm border-b md:border border-gray-600 text-white px-6 md:px-8 lg:px-16 md:rounded-lg;
@@ -41,21 +55,12 @@ input[type='date']::-webkit-calendar-picker-indicator {
     color: white !important;
   }
 
-
-  .select-input {
-    @apply bg-slate-900/80 text-white text-lg px-3 py-2 rounded-md font-semibold;
-  }
-
-  .select-input select {
-    @apply text-[16px] bg-slate-800/80 rounded-md px-1 py-2 text-white focus:outline-none md:ml-2;
-  }
-
   /* utility */
   .flex-column {
     @apply flex flex-col;
   }
 
-  /* forms section */
+  /* jobs forms section */
   .form-label {
     @apply text-[16px] font-medium mb-1;
   }
@@ -73,12 +78,21 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
   .form-error {
-    @apply text-red-500 text-sm mx-2 mt-1 min-h-[1.25rem];
+    @apply text-red-500 text-sm mx-2 mt-1 min-h-5;
   }
 
   .primary-btn {
     @apply font-semibold text-[15px] bg-indigo-800 rounded-md px-10 py-2 flex items-center gap-x-2;
   }
+
+   .select-input {
+    @apply bg-slate-900/80 text-white text-lg px-3 py-2 rounded-md font-semibold;
+  }
+
+  .select-input select {
+    @apply text-[16px] bg-slate-800/80 rounded-md px-1 py-2 text-white focus:outline-none md:ml-2;
+  }
+
 
   @keyframes shimmer {
     0% {
@@ -98,6 +112,5 @@ input[type='date']::-webkit-calendar-picker-indicator {
     background-size: 1000px 100%;
     animation: shimmer 1.4s infinite linear;
   }
-
-
 }
+
