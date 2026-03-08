@@ -36,7 +36,7 @@ Deployment and screenshots will be added after backend
 - Express
 - PostgreSQL
 - Prisma ORM
-- Authentication (JWT or sessions)
+- Authentication (JWT)
 
 ---
 
@@ -87,8 +87,8 @@ Backend repository link will be added once available.
 ## Roadmap
 
 - [x] Frontend MVP (localStorage-based)
-- [ ] Backend API
-- [ ] Authentication
+- [x] Backend API
+- [x] Authentication
 - [ ] Frontend–backend integration
 - [ ] Testing
 - [ ] Deployment
