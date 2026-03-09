@@ -1,26 +1,24 @@
 import axios from "axios";
-// import { cookies } from "next/headers";
-
+import { toast } from "sonner";
 
 export const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
-    withCredentials: true
-})
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
+});
 
-// axiosInstance.interceptors.request.use(
-//     async (config) => {
-//         const cookieStore = await cookies(); 
-//         const token: string = cookieStore.get("authToken");
-//         let accessToken = `Bearer ${token}`;
-//         accessToken = JSON.parse(accessToken);
-
-//         if(token) {
-//             if(config.headers) config.headers.token = accessToken;
-//         }
-//         return config;
-//     },
-//     (error) => {
-
-//         return Promise.reject(error);
-//     }
-// )
+axiosInstance.interceptors.response.use(
+  function (response) {
+    return response.data;
+  },
+  function (error) {
+    if (axios.isAxiosError(error)) {
+      if (error?.response?.status === 401) {
+        window.location.href = "/login";
+      }
+      const message = error.response?.data?.message ?? "Server not responding";
+      console.error(message);
+      toast.error(message);
+    }
+    return Promise.reject(error);
+  },
+);
