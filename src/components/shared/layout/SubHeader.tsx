@@ -1,7 +1,6 @@
 import { Search } from "lucide-react";
 import React, { Dispatch, SetStateAction } from "react";
-import { JobStatusList as jobstatus } from "@/utils";
-import { JobStatus } from "@/types";
+import { JOB_STATUS,JobStatus } from "@/constants/enums";
 
 type SubHeaderProps = {
   searchQuery: string;
@@ -41,7 +40,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             <option defaultChecked value={""}>
               All
             </option>
-            {jobstatus.map((status, idx) => {
+            {JOB_STATUS.map((status, idx) => {
               return (
                 <option key={idx} value={status.toLowerCase()}>
                   {status}

@@ -1,13 +1,14 @@
-import { JobApplication } from "@/types";
-import { PlusSquare } from "lucide-react";
+import { JobData } from "@/types";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 type HeaderProps = {
-  handleModalOpen: (data?: JobApplication) => void;
+  handleModalOpen: (data?: JobData) => void;
 };
 
 const Header: React.FC<HeaderProps> = ({ handleModalOpen }) => {
+  
   return (
     <header className="header flex items-center justify-between">
       <div className="w-38 h-20 relative">
@@ -19,15 +20,18 @@ const Header: React.FC<HeaderProps> = ({ handleModalOpen }) => {
           alt="JobLog Logo"
         />
       </div>
-      <div>
+      <div className="flex items-center gap-x-8">
         <button
-          className="font-semibold text-[15px] bg-indigo-800 rounded-md px-4 py-2 flex items-center gap-x-2"
+          className="font-semibold text-[15px] bg-indigo-700 hover:bg-indigo-800 rounded-lg px-4 py-2 duration-200 flex items-center gap-x-1"
           onClick={() => {
             handleModalOpen();
           }}
         >
-          <PlusSquare size={18} />
+          <Plus size={18} />
           Add Jobs
+        </button>
+        <button className="flex gap-x-3 items-center ">
+          My Profile  
         </button>
       </div>
     </header>
