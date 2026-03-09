@@ -5,16 +5,10 @@ import { registerSchema, registerValues, responseType } from "@/types";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import {
-  EyeIcon,
-  EyeOff,
-  LockKeyhole,
-  Mail,
-  User,
-} from "lucide-react";
-import { authRegister } from "@/api/auth.api";
-import axios from "axios";
+import { EyeIcon, EyeOff, LockKeyhole, Mail, User } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { authRegister } from "@/services/authService";
+import { toast } from "sonner";
 
 const RegisterForm = () => {
   const {
@@ -42,18 +36,15 @@ const RegisterForm = () => {
 
     try {
       const response: responseType = await authRegister(data);
-
-
       if (response.success) {
+        toast.success(response.message);
         router.push("/");
+      } else {
+        toast.error(response.message);
       }
-      alert(response.message);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        alert(error.response?.data.message ?? "Something went wrong!");
-      }
     } finally {
-      reset({});
+      reset();
       setLoading(false);
     }
   };

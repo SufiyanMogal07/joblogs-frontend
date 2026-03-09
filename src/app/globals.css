@@ -62,27 +62,27 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
   /* jobs forms section */
   .form-label {
-    @apply text-[16px] font-medium mb-1;
+    @apply text-sm sm:text-[15px] font-medium mb-1.5 text-gray-200;
   }
 
   .form-input-container {
-    @apply flex px-4 py-3 bg-gray-800 gap-x-4 rounded-md focus-within:ring-1 focus-within:ring-blue-400 relative;
+    @apply flex items-center px-3 py-2.5 sm:px-4 sm:py-3 bg-gray-800 border border-gray-700/50 gap-x-3 sm:gap-x-4 rounded-lg focus-within:ring-1 focus-within:ring-blue-400/80 focus-within:border-blue-400/40 relative transition-colors duration-150;
   }
 
   .form-input {
-    @apply placeholder:text-gray-300 text-[16px] w-full focus-within:ring-0 focus-within:outline-none text-white;
+    @apply placeholder:text-gray-300 text-sm sm:text-[15px] w-full focus-within:ring-0 focus-within:outline-none text-white bg-transparent;
   }
 
   .form-input-container select {
-    @apply bg-transparent text-white;
+    @apply bg-transparent text-white cursor-pointer;
   }
 
   .form-error {
-    @apply text-red-500 text-sm mx-2 mt-1 min-h-5;
+    @apply text-red-400 text-xs sm:text-sm mx-1 mt-1 min-h-4;
   }
 
   .primary-btn {
-    @apply font-semibold text-[15px] bg-indigo-800 rounded-md px-10 py-2 flex items-center gap-x-2;
+    @apply font-semibold text-sm sm:text-[15px] bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-800 rounded-lg px-10 py-2.5 flex items-center gap-x-2 transition-colors duration-200;
   }
 
    .select-input {

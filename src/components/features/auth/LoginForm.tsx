@@ -6,54 +6,49 @@ import { EyeIcon, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { authLogin } from "@/api/auth.api";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { authLogin } from "@/services/authService";
+import { toast } from "sonner";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: {errors},
-    reset
+    formState: { errors },
+    reset,
   } = useForm<loginValues>({
     resolver: zodResolver(loginSchema),
-     defaultValues: {
+    defaultValues: {
       email: "",
       password: "",
     },
   });
   const router = useRouter();
 
-   const [showPassword, setShowPassword] = useState(false);
-   const [loading,setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-   const handleLogin = async (data: loginValues) => {
+  const handleLogin = async (data: loginValues) => {
     setLoading(true);
     try {
       const response = await authLogin(data);
 
-      if(response.success) {
+      if (response.success) {
+        toast.success(response.message);
         router.push("/");
+      } else {
+        toast.error(response.message);
       }
-      alert(response.message)
-
-    } catch(error) {
-       if (axios.isAxiosError(error)) {
-        alert(error.response?.data.message ?? "Something went wrong!");
-      }
+    } catch (error) {
     } finally {
       setLoading(false);
       reset({});
     }
-   }
+  };
   return (
     <>
       <AuthCard title="Login" subHeading="Login to access the JobLogs platform">
-        <form
-          onSubmit={handleSubmit(handleLogin)}
-          noValidate
-        >
+        <form onSubmit={handleSubmit(handleLogin)} noValidate>
           <div>
             <label className="form-label" htmlFor="">
               Email
@@ -99,10 +94,7 @@ const LoginForm = () => {
             >
               Forgot Password ?
             </Link>
-            <button
-              type="submit"
-              className="auth-btn mt-2"
-            >
+            <button type="submit" className="auth-btn mt-2">
               {loading ? "loading..." : "Login"}
             </button>
 

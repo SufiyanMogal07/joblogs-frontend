@@ -30,7 +30,7 @@ const Modal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm w-full h-full max-h-screen flex justify-center md:items-center"
+      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm w-full h-full max-h-screen flex justify-center items-end sm:items-center overflow-y-auto"
       onClick={() => setIsModalOpen(false)}
     >
       <div onClick={(e) => e.stopPropagation()} className={childCss}>
