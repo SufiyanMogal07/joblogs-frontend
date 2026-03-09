@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import JobCard from "./JobCard";
-import { JobApplication } from "@/types";
+import { JobData } from "@/types";
 import { BriefcaseBusiness, PlusCircleIcon } from "lucide-react";
 import JobCardSkeleton from "@/components/ui/JobCardSkeleton";
 
 
 type JobPageProps = {
-  jobs: JobApplication[];
-  handleModalOpen: (data?: JobApplication) => void;
-  deleteJob: (id: string) => void;
+  jobs: JobData[];
+  handleModalOpen: (data?: JobData) => void;
+  deleteJob: (id: number) => void;
   filter: string;
   searchQuery: string;
-  handleFavoriteToggle: (job: JobApplication) => void;
-  openNotesModal: (id: string) => void;
+  handleFavoriteToggle: (job: JobData) => void;
+  openNotesModal: (id: number) => void;
 };
 
 const JobPage: React.FC<JobPageProps> = ({
@@ -25,23 +25,17 @@ const JobPage: React.FC<JobPageProps> = ({
   handleFavoriteToggle,
   openNotesModal
 }) => {
-  const [mounted, setMounted] = useState(false);
+  console.log(jobs)
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
 
   const hasActiveFilter = searchQuery || filter;
   const showNoResult = hasActiveFilter;
 
   useEffect(() => {
-    setMounted(true);
+     setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <div className="mt-4">
@@ -73,7 +67,7 @@ const JobPage: React.FC<JobPageProps> = ({
           ? Array.from({ length: 6 }).map((_, i) => {
               return <JobCardSkeleton key={i} />;
             })
-          : jobs.map((job: JobApplication) => {
+          : jobs.map((job: JobData) => {
               return (
                 <JobCard
                   key={job.id}

@@ -1,14 +1,14 @@
-import { JobApplication } from "@/types";
+import { JobData } from "@/types";
 import { formatDate, getStatusBadgeCss } from "@/utils";
 import { Calendar1, Edit, Star, Trash2 } from "lucide-react";
 import React from "react";
 
 type JobCardProps = {
-  job: JobApplication;
-  handleModalOpen: (data?: JobApplication) => void;
-  deleteJob: (id: string) => void;
-  handleFavoriteToggle: (job: JobApplication) => void;
-  openNotesModal: (id: string) => void;
+  job: JobData;
+  handleModalOpen: (data?: JobData) => void;
+  deleteJob: (id: number) => void;
+  handleFavoriteToggle: (job: JobData) => void;
+  openNotesModal: (id: number) => void;
 };
 
 const JobCard: React.FC<JobCardProps> = ({
@@ -29,7 +29,7 @@ const JobCard: React.FC<JobCardProps> = ({
           <Star
             onClick={() => handleFavoriteToggle(job)}
             className={`${
-              job.isFavourite
+              job.priority
                 ? "fill-yellow-400 stroke-yellow-500"
                 : "fill-none stroke-slate-300"
             }`}
