@@ -1,7 +1,5 @@
-import { JobStatus } from "@/types";
+import { JobStatus } from "@/constants/enums";
 
-
-export const JobStatusList = ["Draft","Applied","Interviewing","Offer","Rejected"];
 
 export const formatDate = (date?: string) => {
   if (!date) return "Not applied yet";
@@ -12,6 +10,8 @@ export const formatDate = (date?: string) => {
     year: "numeric",
   });
 };
+
+
 
 export const capitalizeWords = (str: string) => {
   return str[0].toUpperCase() + str.slice(1)

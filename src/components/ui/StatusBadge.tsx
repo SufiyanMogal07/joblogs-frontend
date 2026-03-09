@@ -1,4 +1,5 @@
-import { JobStatus } from "@/types";
+import { JobStatus } from "@/constants/enums";
+
 
 type StatusBadge = {
   status: JobStatus;
