@@ -1,23 +1,50 @@
 "use client";
 import JobPage from "@/components/features/jobs/JobPage";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import Header from "@/components/shared/layout/Header";
 import SubHeader from "@/components/shared/layout/SubHeader";
-import { JobApplication, JobStatus } from "@/types";
-import { useState } from "react";
+import { JobApplication, JobData, responseType } from "@/types";
+import { useEffect, useState } from "react";
 import NotesModal from "@/components/features/jobs/NotesModal";
 import JobModal from "@/components/features/jobs/JobModal";
+import { JobStatus } from "@/constants/enums";
+import { createJob, getJobs, updateJob } from "@/services/jobService";
+import { toast } from "sonner";
 
 export default function Home() {
-  const [jobs, setJobs] = useLocalStorage<JobApplication[]>("jobs", []);
-  const [editData, setEditData] = useState<JobApplication | null>(null);
+  const [jobs, setJobs] = useState<JobData[]>([]);
+  const [editData, setEditData] = useState<JobData | null>(null);
   const [jobModalOpen, setJobModalOpen] = useState<boolean>(false);
   const [notesModalOpen, setNotesModalOpen] = useState<boolean>(false);
-  const [notesId, setNotesId] = useState<string | null>(null);
+  const [notesId, setNotesId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filter, setFilter] = useState<JobStatus | "">("");
+  const [filter, setFilter] = useState<JobStatus>(
+    "" as JobApplication["status"],
+  );
 
-  const handleModalOpen = (data?: JobApplication) => {
+  const getAllJobs = async () => {
+    try {
+      const result = await getJobs();
+
+      if (result.success) {
+        if (result.data) {
+          const cleaned = result.data.map((job: JobData) => ({
+            ...job,
+            appliedAt: job.appliedAt?.split("T")[0],
+          }));
+          setJobs(cleaned);
+        }
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+    }
+  };
+
+  useEffect(() => {
+    getAllJobs();
+  }, []);
+
+  const handleModalOpen = (data?: JobData) => {
     setJobModalOpen(true);
     if (data) {
       setEditData(data);
@@ -31,39 +58,53 @@ export default function Home() {
     setEditData(null);
   };
 
-  const openNotesModal = (id: string) => {
+  const openNotesModal = (id: number) => {
     setNotesId(id);
     setNotesModalOpen(true);
   };
 
-  const createOrUpdateJob = (data: JobApplication) => {
+  const createOrUpdateJob = async (data: JobData) => {
     if (!data) return;
 
-    if (data.status === "draft") data.appliedAt = "";
-    const newJobs = [...jobs];
+    if (data.status === "draft") data.appliedAt = undefined;
 
     if (!editData) {
-      newJobs.push(data);
-      setJobs(newJobs);
+      
+      try {
+        const result: responseType = await createJob(data);
+
+         if (result.success) {
+        await getAllJobs();
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
+      } catch (error) {
+      }
     } else {
       if (!data.id) return;
-      setJobs((prev) =>
-        prev.map((item) => (item.id === data.id ? { ...item, ...data } : item))
-      );
+      const result = await updateJob(data);
+
+      if (result.success) {
+        await getAllJobs();
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
     }
   };
 
-  const deleteJob = (id: string) => {
+  const deleteJob = (id: number) => {
     const deleteFlag = confirm("Are you sure want to delete job applications?");
 
     if (deleteFlag) setJobs((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const handleFavoriteToggle = (job: JobApplication) => {
+  const handleFavoriteToggle = (job: JobData) => {
     setJobs((prev) =>
       prev.map((item) =>
-        item.id === job.id ? { ...item, isFavourite: !item.isFavourite } : item
-      )
+        item.id === job.id ? { ...item, priority: !item.priority } : item,
+      ),
     );
   };
 
@@ -74,13 +115,15 @@ export default function Home() {
   derivedJobs = derivedJobs.filter((value) => {
     const query = searchQuery.toLowerCase();
 
-    if (value.companyName.toLowerCase().includes(query)) return true;
-    if (value.position.toLowerCase().includes(query)) return true;
+    return (
+      value.companyName.toLowerCase().includes(query) ||
+      value.position.toLowerCase().includes(query)
+    );
   });
 
   // status filter
   derivedJobs = derivedJobs.filter((value) => {
-    if (filter === "") return value;
+    if (filter === ("" as JobApplication["status"])) return value;
 
     return value.status === filter;
   });
@@ -88,7 +131,7 @@ export default function Home() {
   // sortby favourite
 
   derivedJobs = derivedJobs.sort(
-    (a, b) => Number(b.isFavourite) - Number(a.isFavourite)
+    (a, b) => Number(b.priority) - Number(a.priority),
   );
 
   const jobId = jobs.findIndex((item) => item.id === notesId) ?? 0;
