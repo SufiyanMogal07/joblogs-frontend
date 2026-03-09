@@ -1,39 +1,59 @@
+import {
+  JOB_SOURCE,
+  JOB_STATUS,
+} from "@/constants/enums";
 import z from "zod";
 
-export type JobStatus =
-  | "draft"
-  | "applied"
-  | "interviewing"
-  | "offer"
-  | "rejected" 
-  | "";
+// Object Shape
+export type responseType<T = undefined> = {
+  success: boolean;
+  message: string;
+  data?: T;
+};
 
-export type responseType = {
-  success: boolean,
-  message: string,
-  data?: unknown
-}
+// Promise wrapped Object
+export type ApiResponse<T = undefined> = Promise<responseType<T>>;
 
 const baseAuthObject = z.object({
-  name: z.string().trim().min(3,"Full name is required"),
-  email: z.string().trim().email({message: "Email is invalid!"}),
-  password : z.string().min(6,"Password should be atleast of 6 characters").max(10,"Password maximum (10) characters reached")
+  name: z
+    .string()
+    .trim()
+    .min(3, "Name should be atleast of 3 characters!")
+    .max(40, "Name should not exceed 40 characters!"),
+  email: z
+    .string()
+    .trim()
+    .email("Invalid email address!")
+    .max(50, "Email should not exceed 50 characters!"),
+  password: z.string().min(6).max(10),
 });
 
 export const registerSchema = baseAuthObject.extend({});
-export const loginSchema = baseAuthObject.omit({name: true});
+export const loginSchema = baseAuthObject.omit({ name: true });
 
 export type registerValues = z.infer<typeof registerSchema>;
 export type loginValues = z.infer<typeof loginSchema>;
 
-export type JobApplication = {
-  id: string;
-  companyName: string;
-  position: string;
-  notes?: string;
-  isFavourite: boolean;
-  status: JobStatus;
-  appliedAt?: string; // ISO Date
-  createdAt: string;
-  updatedAt: string;
-};
+export const JobApplicationSchema = z.object({
+  companyName: z.string().trim().min(3, "Company name is required!"),
+  position: z.string().min(3, "Job position is required!"),
+  status: z.enum(JOB_STATUS, {
+    error: () => ({ message: "Job Status is required  " })
+  }),
+  source: z.enum(JOB_SOURCE, {
+    error: () => ({ message: "Job Source is required"})
+  }),
+  priority: z.boolean(),
+  notes: z.string().trim().optional(),
+  appliedAt: z.string({
+    error: () => ({message: "Applied Date is required"})
+  }).optional(),
+});
+
+export const JobDataSchema = JobApplicationSchema.extend({
+  id: z.number()
+})
+
+// export type JobApplicationForm = z.infer<typeof JobApplicationSchema>;
+export type JobApplication = z.infer<typeof JobApplicationSchema>;
+export type JobData = z.infer<typeof JobDataSchema>
