@@ -21,7 +21,7 @@
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void;
     handleModalClose: () => void;
-    createorUpdateJob: (data: JobData, id?: string) => void;
+    createorUpdateJob: (data: JobData, id?: number) => void;
     editData: JobData | null;
   };
 
