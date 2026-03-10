@@ -36,8 +36,7 @@ export default function Home() {
       } else {
         toast.error(result.message);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -69,22 +68,19 @@ export default function Home() {
     if (data.status === "draft") data.appliedAt = undefined;
 
     if (!editData) {
-      
       try {
         const result: responseType = await createJob(data);
 
-         if (result.success) {
-        await getAllJobs();
-        toast.success(result.message);
-      } else {
-        toast.error(result.message);
-      }
-      } catch (error) {
-      }
+        if (result.success) {
+          await getAllJobs();
+          toast.success(result.message);
+        } else {
+          toast.error(result.message);
+        }
+      } catch (error) {}
     } else {
       if (!data.id) return;
       const result = await updateJob(data);
-
       if (result.success) {
         await getAllJobs();
         toast.success(result.message);

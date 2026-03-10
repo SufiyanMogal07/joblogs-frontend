@@ -1,5 +1,5 @@
 import { JobData } from "@/types";
-import { formatDate, getStatusBadgeCss } from "@/utils";
+import { formatDate, getStatusBadgeCss } from "@/utils/utils";
 import { Calendar1, Edit, Star, Trash2 } from "lucide-react";
 import React from "react";
 

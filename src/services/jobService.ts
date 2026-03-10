@@ -10,7 +10,7 @@ export const updateJob = async (data: JobData) : ApiResponse => {
   const id = data.id;
   const result = await axiosInstance.patch(`/jobs/${id}`, data);
 
-  return result.data;
+  return result.data ?? result;
 };
 
 export const deleteJob = async () => {};

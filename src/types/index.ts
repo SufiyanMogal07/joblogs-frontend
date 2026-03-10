@@ -1,7 +1,4 @@
-import {
-  JOB_SOURCE,
-  JOB_STATUS,
-} from "@/constants/enums";
+import { JOB_SOURCE, JOB_STATUS } from "@/constants/enums";
 import z from "zod";
 
 // Object Shape
@@ -34,26 +31,38 @@ export const loginSchema = baseAuthObject.omit({ name: true });
 export type registerValues = z.infer<typeof registerSchema>;
 export type loginValues = z.infer<typeof loginSchema>;
 
-export const JobApplicationSchema = z.object({
-  companyName: z.string().trim().min(3, "Company name is required!"),
-  position: z.string().min(3, "Job position is required!"),
-  status: z.enum(JOB_STATUS, {
-    error: () => ({ message: "Job Status is required  " })
-  }),
-  source: z.enum(JOB_SOURCE, {
-    error: () => ({ message: "Job Source is required"})
-  }),
-  priority: z.boolean(),
-  notes: z.string().trim().optional(),
-  appliedAt: z.string({
-    error: () => ({message: "Applied Date is required"})
-  }).optional(),
-});
+export const JobApplicationSchema = z
+  .object({
+    companyName: z.string().trim().min(3, "Company name is required!"),
+    position: z.string().min(3, "Job position is required!"),
+    status: z.enum(JOB_STATUS, {
+      error: () => ({ message: "Job Status is required  " }),
+    }),
+    source: z.enum(JOB_SOURCE, {
+      error: () => ({ message: "Job Source is required" }),
+    }),
+    priority: z.boolean(),
+    notes: z.string().trim().optional(),
+    appliedAt: z
+      .string({
+        error: () => ({ message: "Applied Date is required" }),
+      })
+      .optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.status !== "draft" && !data.appliedAt) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Applied Date is required when the job status is not draft",
+        path: ["appliedAt"],
+      });
+    }
+  });
 
 export const JobDataSchema = JobApplicationSchema.extend({
-  id: z.number()
-})
+  id: z.number(),
+});
 
 // export type JobApplicationForm = z.infer<typeof JobApplicationSchema>;
 export type JobApplication = z.infer<typeof JobApplicationSchema>;
-export type JobData = z.infer<typeof JobDataSchema>
+export type JobData = z.infer<typeof JobDataSchema>;

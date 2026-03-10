@@ -14,7 +14,7 @@
   import { JobApplication, JobData, JobDataSchema } from "@/types";
   import Modal from "../../shared/others/Modal";
   import { zodResolver } from "@hookform/resolvers/zod";
-  import { capitalizeWords } from "@/utils";
+  import { capitalizeWords, getTomorrowDate } from "@/utils/utils";
 
   type JobModalProps = {
     isEdit?: boolean;
@@ -102,13 +102,8 @@
       return null;
     }
 
-    const getTomorrowDate = () => {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate());
-      return tomorrow.toISOString().split("T")[0];
-    };
+    
 
-    getTomorrowDate();
 
     const onSubmit: SubmitHandler<JobData> = (data: JobData) => {
       createorUpdateJob(data);

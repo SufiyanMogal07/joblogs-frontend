@@ -11,7 +11,11 @@ export const formatDate = (date?: string) => {
   });
 };
 
-
+export const getTomorrowDate = () => {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate());
+      return tomorrow.toISOString().split("T")[0];
+    };
 
 export const capitalizeWords = (str: string) => {
   return str[0].toUpperCase() + str.slice(1)
