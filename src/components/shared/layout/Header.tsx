@@ -1,5 +1,5 @@
 import { JobData } from "@/types";
-import { Plus } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -8,7 +8,6 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ handleModalOpen }) => {
-  
   return (
     <header className="header flex items-center justify-between">
       <div className="w-38 h-20 relative">
@@ -30,8 +29,11 @@ const Header: React.FC<HeaderProps> = ({ handleModalOpen }) => {
           <Plus size={18} />
           Add Jobs
         </button>
-        <button className="flex gap-x-3 items-center ">
-          My Profile  
+        <button className="flex gap-x-3 p-2 rounded-lg items-center hover:bg-slate-800/70 transition-colors">
+          <span className="bg-blue-500 w-8 aspect-square rounded-full flex items-center justify-center">
+            S
+          </span>
+          <ChevronDown/>
         </button>
       </div>
     </header>
