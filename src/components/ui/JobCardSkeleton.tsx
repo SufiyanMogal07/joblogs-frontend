@@ -6,33 +6,32 @@ const SkeletonBlock = ({ className }: { className: string }) => (
 
 const JobCardSkeleton = () => {
   return (
-    <div className="bg-slate-800 rounded-lg h-70 p-5 overflow-hidden">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <SkeletonBlock className="h-6 w-1/2" />
-        <div className="flex items-center gap-x-3">
-          <SkeletonBlock className="h-5 w-20 rounded-full" />
-          <SkeletonBlock className="h-5 w-5 rounded-full" />
-        </div>
+    <div className="bg-slate-800/90 border border-gray-600/40 rounded-xl p-6 h-[320px] overflow-hidden animate-pulse">
+      {/* Header: Badge & Ellipsis */}
+      <div className="flex items-center justify-between mb-4">
+        <SkeletonBlock className="h-6 w-20 rounded-full" /> {/* Badge */}
+        <SkeletonBlock className="h-6 w-6 rounded-md" /> {/* Ellipsis */}
       </div>
-
-      {/* Position */}
-      <SkeletonBlock className="h-5 w-2/3 mt-3" />
-
-      {/* Notes */}
-      <div className="mt-4 space-y-2">
+      {/* Company & Position */}
+      <SkeletonBlock className="h-7 w-3/4 mb-2" /> {/* Company Name */}
+      <SkeletonBlock className="h-5 w-1/2" /> {/* Position */}
+      {/* Source */}
+      <div className="flex items-center gap-x-2 mt-4">
+        <SkeletonBlock className="h-4 w-4 rounded-full" />
         <SkeletonBlock className="h-4 w-24" />
+      </div>
+      {/* Divider */}
+      <div className="border-t border-gray-700/50 my-4" />
+      {/* Notes preview skeleton */}
+      <div className="space-y-2 mb-6">
+        <SkeletonBlock className="h-4 w-16" />
         <SkeletonBlock className="h-4 w-full" />
         <SkeletonBlock className="h-4 w-5/6" />
       </div>
-
-      {/* Footer */}
-      <div className="flex justify-between items-center mt-5">
-        <SkeletonBlock className="h-5 w-40" />
-        <div className="flex gap-x-3">
-          <SkeletonBlock className="h-5 w-5" />
-          <SkeletonBlock className="h-5 w-5" />
-        </div>
+      {/* Footer: Date + Star Icon */}
+      <div className="flex items-center justify-between mt-auto">
+        <SkeletonBlock className="h-5 w-28" />
+        <SkeletonBlock className="h-6 w-6 rounded-md" />
       </div>
     </div>
   );

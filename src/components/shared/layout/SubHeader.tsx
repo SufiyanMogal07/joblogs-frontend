@@ -17,8 +17,8 @@ const SubHeader: React.FC<SubHeaderProps> = ({
   
 }) => {
   return (
-    <div className="header border-none px-4 py-4 md:mt-2 relative flex flex-col md:flex-row md:items-center gap-3 md:flex-wrap rounded-md">
-      <div className="w-full md:min-w-xl max-w-2xl flex-2 flex items-center gap-x-2 px-6 py-3 bg-slate-900/80 relative rounded-md border border-gray-500">
+    <div className="mt-2 px-8 py-2 relative flex flex-col md:flex-row md:items-center gap-3 md:flex-wrap  ">
+      {/* <div className="w-full md:max-w-sm flex-2 flex items-center gap-x-2 px-6 py-3 bg-slate-800/80 relative rounded-xl">
         <Search />
         <input
           type="search"
@@ -27,9 +27,9 @@ const SubHeader: React.FC<SubHeaderProps> = ({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-      </div>
+      </div> */}
 
-      <div className="flex">
+      {/* <div className="flex">
         <div className="select-input">
           <span className="text-[16px]">Status Filter: </span>
           <select
@@ -49,7 +49,7 @@ const SubHeader: React.FC<SubHeaderProps> = ({
             })}
           </select>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
