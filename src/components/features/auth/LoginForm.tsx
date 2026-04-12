@@ -35,7 +35,7 @@ const LoginForm = () => {
 
       if (response.success) {
         toast.success(response.message);
-        router.push("/");
+        router.push("/dashboard");
       } else {
         toast.error(response.message);
       }
