@@ -13,4 +13,10 @@ export const updateJob = async (data: JobData) : ApiResponse => {
   return result.data ?? result;
 };
 
-export const deleteJob = async () => {};
+export const deleteJob = async (id: number): ApiResponse => {
+   const result = await axiosInstance.delete(`/jobs/${id}`);
+
+  return result.data ?? result;
+};
+
+
