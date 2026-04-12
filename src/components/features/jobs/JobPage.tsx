@@ -4,6 +4,7 @@ import JobCard from "./JobCard";
 import { JobData } from "@/types";
 import { BriefcaseBusiness, PlusCircleIcon } from "lucide-react";
 import JobCardSkeleton from "@/components/ui/JobCardSkeleton";
+import { JobStatus } from "@/constants/enums";
 
 
 type JobPageProps = {
@@ -13,6 +14,7 @@ type JobPageProps = {
   filter: string;
   searchQuery: string;
   handleFavoriteToggle: (job: JobData) => void;
+  handleJobStatus: (job:JobData,status: JobStatus) => void;
   openNotesModal: (id: number) => void;
 };
 
@@ -23,9 +25,10 @@ const JobPage: React.FC<JobPageProps> = ({
   filter,
   searchQuery,
   handleFavoriteToggle,
+  handleJobStatus,
   openNotesModal
 }) => {
-  console.log(jobs)
+ 
   const [loading, setLoading] = useState(true);
 
   const hasActiveFilter = searchQuery || filter;
@@ -38,7 +41,7 @@ const JobPage: React.FC<JobPageProps> = ({
   }, []);
 
   return (
-    <div className="mt-4">
+    <div className="mt-2">
       {(jobs.length === 0  && !loading)&& (
         <div className="flex flex-col justify-center items-center border border-dashed border-gray-700 text-gray-400 rounded-lg h-72">
           {!showNoResult ? (
@@ -62,7 +65,7 @@ const JobPage: React.FC<JobPageProps> = ({
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-4 md:p-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-4">
         {loading
           ? Array.from({ length: 6 }).map((_, i) => {
               return <JobCardSkeleton key={i} />;
@@ -75,6 +78,7 @@ const JobPage: React.FC<JobPageProps> = ({
                   handleModalOpen={handleModalOpen}
                   deleteJob={deleteJob}
                   handleFavoriteToggle={handleFavoriteToggle}
+                  handleJobStatus={handleJobStatus}
                   openNotesModal={openNotesModal}
                 />
               );

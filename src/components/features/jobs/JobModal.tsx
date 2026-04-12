@@ -4,6 +4,7 @@
     Briefcase,
     Building2,
     Calendar,
+    Link,
     Notebook,
     Star,
     X,
@@ -102,10 +103,8 @@
       return null;
     }
 
-    
-
-
     const onSubmit: SubmitHandler<JobData> = (data: JobData) => {
+      console.log("jobs...")
       createorUpdateJob(data);
       reset({});
       handleModalClose();
@@ -202,7 +201,7 @@
               Job Source <span className="text-red-500 text-sm">*</span>
             </label>
             <div className="form-input-container">
-              <Activity size={20} className="text-gray-400 shrink-0" />
+              <Link size={20} className="text-gray-400 shrink-0" />
               <select
                 className="form-input bg-gray-800"
                 {...register("source", {
