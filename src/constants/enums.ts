@@ -6,6 +6,8 @@ export const JOB_STATUS = [
   "rejected"
 ] as const;
 
+export const editableJobStatus = [...JOB_STATUS];
+
 export const JOB_SOURCE = [
   "linkedin",
   "indeed",
