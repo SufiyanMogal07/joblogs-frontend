@@ -12,9 +12,9 @@ import { create } from "zustand";
 interface JobStore {
   jobs: JobData[];
   isLoading: boolean;
-  search?: string;
-  setSearch?: (query: string) => void;
-  fetchJobs: () => Promise<void>;
+  search: string;
+  setSearch: (query: string) => void;
+  fetchJobs: (query?: string) => Promise<void>;
   handlePriority: (job: JobData) => Promise<void>;
   handleJobStatus: (job: JobData, status: JobStatus) => Promise<void>;
   createJob: (job: JobData) => void;
@@ -26,11 +26,15 @@ export const useJobStore = create<JobStore>((set, get) => ({
   jobs: [],
   isLoading: false,
   search: "",
-  setSearch: (query) => set({ search: query }),
-  fetchJobs: async () => {
+  setSearch: (query) => {
+    if (typeof query !== "string") return;
+
+    set({ search: query });
+  },
+  fetchJobs: async (query?: string) => {
     set({ isLoading: true });
     try {
-      const result = await getJobs();
+      const result = await getJobs(query);
       if (result.success) {
         const cleaned = result.data?.map((job) => {
           return {
@@ -63,7 +67,8 @@ export const useJobStore = create<JobStore>((set, get) => ({
     const appliedDate = job.appliedAt;
     const date = new Date();
 
-    job.appliedAt = (status !== "draft" && !job.appliedAt) ? date.toISOString() : appliedDate;
+    job.appliedAt =
+      status !== "draft" && !job.appliedAt ? date.toISOString() : appliedDate;
 
     try {
       const result = await updateJob({ ...job, status });

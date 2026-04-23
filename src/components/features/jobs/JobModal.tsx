@@ -104,8 +104,12 @@
     }
 
     const onSubmit: SubmitHandler<JobData> = (data: JobData) => {
-      console.log("jobs...")
-      createorUpdateJob(data);
+
+      if(isEdit && editData) {
+        createorUpdateJob(data,editData.id)
+      } else {
+        createorUpdateJob(data);
+      }
       reset({});
       handleModalClose();
     };

@@ -16,7 +16,6 @@ axiosInstance.interceptors.response.use(
         window.location.href = "/login";
       }
       const message = error.response?.data?.message ?? "Server not responding";
-      console.error(message);
       toast.error(message);
     }
     return Promise.reject(error);

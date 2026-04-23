@@ -8,3 +8,7 @@ export const authRegister = async (data: registerValues) : ApiResponse  => {
 export const authLogin = async (data: loginValues) : ApiResponse => {
   return await axiosInstance.post("/auth/login", data);
 };
+
+export const authLogout = async () : ApiResponse => {
+  return await axiosInstance.post("/auth/logout");
+}

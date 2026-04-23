@@ -1,68 +1,178 @@
 "use client";
 import { JobData } from "@/types";
-import { Bell, ChevronDown, ChevronRight, ChevronsRight, Kanban, LayoutDashboard, LogOut, PanelRight, Plus, Search, User } from "lucide-react";
-import Image from "next/image";
-import React, { useRef, useState } from "react";
+import {
+  Bell,
+  ChevronDown,
+  ChevronRight,
+  ChevronsRight,
+  Kanban,
+  LayoutDashboard,
+  LogOut,
+  PanelRight,
+  Plus,
+  Search,
+  User,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import Popup from "@/components/ui/Popup";
 import { useStore } from "zustand";
 import { useUIStore } from "@/stores/useUIStore";
+import { useJobStore } from "@/stores/useJobStore";
+import { searchJob } from "@/services/jobService";
+import { useRouter } from "next/navigation";
+import { authLogout } from "@/services/authService";
 
-// type HeaderProps = {
-// handleModalOpen: (data?: JobData) => void;
-// searchQuery: string;
-// setSearchQuery: (query: string) => void;
-// };
-
-// const Header: React.FC<HeaderProps> = ({ handleModalOpen }) => {
 const Header = () => {
-  const {isSidebarOpen,toggleSidebar} = useStore(useUIStore);
+  const { isSidebarOpen, toggleSidebar } = useStore(useUIStore);
+
+  const { search, setSearch } = useStore(useJobStore);
+  const [jobSuggestion, setJobSuggestion] = useState([]);
+  const [searchPopupOpen, setSearchPopupOpen] = useState(false);
+  const searchBarRef = useRef(null);
+
+  const [profilePopupOpen, setProfilePopupOpen] = useState(false);
+  const profileRef = useRef(null);
+
+  const router = useRouter();
+
+  const logOut = async () => {
+    setProfilePopupOpen(false);
+    const flag = confirm("Are you sure want to logout!");
+    if (flag) {
+      const response = await authLogout();
+
+      if (response.success) router.push("/login");
+    }
+  };
+
+  const searchJobSuggestion = () => {
+    const id = setTimeout(async () => {
+      const job = await searchJob(search?.trim());
+      setJobSuggestion(job ?? []);
+    }, 800);
+
+    return () => clearTimeout(id);
+  };
+
+  const handleSearchSubmit = (value: JobData) => {
+    if (!value) return;
+
+    const companyName = value.companyName.toLowerCase().replace(/\s+/g, "-");
+    const position = value.position.toLocaleLowerCase().replace(/\s+/g, "-");
+
+    const slug = `?company=${companyName}&position=${position}`;
+
+    const fullPath = `/dashboard/jobs${slug}`;
+
+    setSearch(`${value.companyName} - ${value.position}`);
+    setSearchPopupOpen(false);
+    router.push(fullPath);
+  };
+
+  useEffect(() => {
+    const isSelected = search.includes(" - ");
+
+    if (search.length > 0 && !isSelected) {
+      setSearchPopupOpen(true);
+    } else {
+      setSearchPopupOpen(false);
+    }
+    return searchJobSuggestion();
+  }, [search]);
 
   return (
-    <header className={`flex items-center justify-between bg-slate-900/90 px-4 py-2 border border-slate-50/10 transition-all duration-500 ease-in-out`}>
-      <ChevronsRight size={32} onClick={toggleSidebar} className={`text-blue-100 ${isSidebarOpen && "rotate-180"}`}/>
-      <div className="w-full md:max-w-sm flex-2 flex items-center gap-x-2 px-6 py-2 bg-slate-800/80 relative rounded-xl">
-        <Search />
-        <input
-          type="search"
-          className="text-[16px] placeholder:text-white w-full focus:outline-none"
-          placeholder="Search jobs..."
-          // value={searchQuery}
-          // onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-      <div className="flex items-center gap-x-8">
+    <header
+      className={`flex items-center justify-between bg-slate-900/90 px-4 py-2 border border-slate-50/10 transition-all duration-500 ease-in-out relative`}
+    >
+      <ChevronsRight
+        size={32}
+        onClick={toggleSidebar}
+        className={`text-blue-100 ${isSidebarOpen && "rotate-180"}`}
+      />
 
-        <Bell size={20}/>
+      <div className="relative w-full max-w-sm">
+        <div
+          className="flex-2 flex items-center gap-x-2 px-6 py-2 bg-slate-800/80 relative rounded-xl"
+          ref={searchBarRef}
+          onClick={() => {
+            if (search.length > 0) {
+              setSearchPopupOpen((prev) => !prev);
+            }
+          }}
+        >
+          <Search />
+          <input
+            type="search"
+            className="text-[16px] placeholder:text-white w-full focus:outline-none"
+            placeholder="Search job applications..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <Popup
+          isOpen={searchPopupOpen}
+          onClose={() => setSearchPopupOpen(false)}
+          anchorRef={searchBarRef}
+          popupCss="w-full top-16 left-0 w-80 bg-slate-700/60 backdrop-blur-sm transition-all duration-400 ease-in-out"
+        >
+          {jobSuggestion.map((val: JobData, idx) => {
+            return (
+              <div
+                className="px-5 py-2.5 text-[15px] hover:bg-slate-600/80 cursor-pointer"
+                key={idx}
+                onClick={() => handleSearchSubmit(val)}
+              >
+                <span className="text-base font-medium">
+                  {val.companyName} - {val.position}
+                </span>
+              </div>
+            );
+          })}
+          {jobSuggestion.length === 0 && (
+            <span className="px-4 py-3 text-[16px]">
+              No Job Application Found!
+            </span>
+          )}
+        </Popup>
+      </div>
+
+      <div className="flex items-center gap-x-8">
+        {/* <Bell size={20} /> */}
 
         <button
-          // ref={toggleRef}
-          // onClick={() => setIsPopupOpen((prev) => !prev)}
-          className={`flex gap-x-3 p-2 rounded-lg items-center hover:bg-slate-800/70 transition-colors `}
-          // ${isPopupOpen && "bg-slate-800/70"}
+          ref={profileRef}
+          onClick={() => setProfilePopupOpen((prev) => !prev)}
+          className={`flex gap-x-3 p-2 px-4 rounded-4xl items-center hover:bg-slate-800/70 transition-colors ${profilePopupOpen && "bg-slate-800/70"}`}
         >
           <span className="bg-blue-500 w-8 aspect-square rounded-full flex items-center justify-center">
             S
           </span>
           <ChevronDown
-            // className={`transition-all duration-300 ${isPopupOpen ? "rotate-180" : ""}`}
+            className={`transition-all duration-300 ${profilePopupOpen ? "rotate-180" : ""}`}
           />
         </button>
       </div>
-      {/* <Popup
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-        anchorRef={toggleRef}
-        popupCss="top-20 right-4 w-48"
+      <Popup
+        isOpen={profilePopupOpen}
+        onClose={() => setProfilePopupOpen(false)}
+        anchorRef={profileRef}
+        popupCss="bg-slate-800/50 backdrop-blur-md top-20 right-4 w-48"
       >
-        <button className="flex items-center gap-x-4">
+        <button
+          className="flex items-center gap-x-4"
+          onClick={() => {
+            router.push("/dashboard/profile");
+            setProfilePopupOpen(false);
+          }}
+        >
           <User size={18} />
           My Profile
         </button>
-        <button className="flex items-center gap-x-4">
+        <button className="flex items-center gap-x-4" onClick={logOut}>
           <LogOut size={18} />
           Logout
         </button>
-      </Popup> */}
+      </Popup>
     </header>
   );
 };

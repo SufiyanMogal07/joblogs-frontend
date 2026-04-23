@@ -9,6 +9,8 @@ import { updateJob } from "@/services/jobService";
 import JobPage from "@/components/features/jobs/JobPage";
 import JobModal from "@/components/features/jobs/JobModal";
 import NotesModal from "@/components/features/jobs/NotesModal";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const {
@@ -27,12 +29,14 @@ const Page = () => {
   const [jobModalOpen, setJobModalOpen] = useState<boolean>(false);
   const [notesModalOpen, setNotesModalOpen] = useState<boolean>(false);
   const [notesId, setNotesId] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const [filter, setFilter] = useState<JobStatus>(
     "" as JobApplication["status"],
   );
+  const router = useRouter();
+  const searchParam = useSearchParams();
+  const query = searchParam.toString();
 
-  const createOrUpdateJob = (data: JobData) => editData ? updateJob(editData) : createJob(data);
+  const createOrUpdateJob = (data: JobData,id?: number) =>  (id) ? updateJob(data) : createJob(data);
 
   const handleModalOpen = (data?: JobData) => {
     setJobModalOpen(true);
@@ -54,9 +58,9 @@ const Page = () => {
   };
 
   useEffect(() => {
-    fetchJobs();
-  }, []);
-  
+    fetchJobs(query);
+  }, [query]);
+
   const jobId = jobs.findIndex((item) => item.id === notesId) ?? 0;
 
   return (
@@ -70,24 +74,32 @@ const Page = () => {
           <h1 className="text-xl font-bold tracking-wide">Job Applications</h1>
         </div>
 
-        {/* Logic-driven Button */}
-        <button
-          onClick={() => setJobModalOpen(true)}
-          className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2 rounded-lg font-semibold transition-all"
-        >
-          <Plus size={18} />
-          Add Job
-        </button>
+        <div className="flex gap-x-6">
+          <button
+            onClick={() => setJobModalOpen(true)}
+            className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2 rounded-lg font-semibold transition-all"
+          >
+            <Plus size={18} />
+            Add Job
+          </button>
+          <button
+            onClick={() => {
+              setSearch("");
+              router.push("/dashboard/jobs");
+            }}
+            className="flex items-center gap-2 bg-red-500/80 hover:bg-red-500/50 px-4 py-2 rounded-lg font-semibold transition-all"
+          >
+            Clear Search
+          </button>
+        </div>
       </div>
-
-      {/* Your table or grid logic goes here */}
 
       <JobPage
         jobs={jobs}
         handleModalOpen={handleModalOpen}
         deleteJob={deleteJob}
         filter={filter}
-        searchQuery={searchQuery}
+        searchQuery={search}
         handleFavoriteToggle={handlePriority}
         handleJobStatus={handleJobStatus}
         openNotesModal={openNotesModal}
@@ -105,9 +117,8 @@ const Page = () => {
       <NotesModal
         isModalOpen={notesModalOpen}
         setIsModalOpen={setNotesModalOpen}
-         notes={jobs[jobId]?.notes}
+        notes={jobs[jobId]?.notes}
       />
-
     </div>
   );
 };

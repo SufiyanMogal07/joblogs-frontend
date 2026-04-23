@@ -63,6 +63,12 @@ export const JobDataSchema = JobApplicationSchema.extend({
   id: z.number(),
 });
 
+export const UserProfileSchema = z.object({
+  name: z.string().trim().min(3, "Full name is required"),
+  email: z.email().trim().min(4, "Email is required"),
+});
+
 // export type JobApplicationForm = z.infer<typeof JobApplicationSchema>;
 export type JobApplication = z.infer<typeof JobApplicationSchema>;
 export type JobData = z.infer<typeof JobDataSchema>;
+export type UserProfile = z.infer<typeof UserProfileSchema>;
