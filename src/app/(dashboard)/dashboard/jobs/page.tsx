@@ -1,6 +1,6 @@
 "use client";
 import { Briefcase, Plus } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useUIStore } from "@/stores/useUIStore";
 import { useJobStore } from "@/stores/useJobStore";
 import { JobApplication, JobData } from "@/types";
@@ -12,7 +12,7 @@ import NotesModal from "@/components/features/jobs/NotesModal";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-const Page = () => {
+const JobsContent = () => {
   const {
     jobs,
     fetchJobs,
@@ -120,6 +120,14 @@ const Page = () => {
         notes={jobs[jobId]?.notes}
       />
     </div>
+  );
+};
+
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading Jobs...</div>}>
+      <JobsContent />
+    </Suspense>
   );
 };
 
