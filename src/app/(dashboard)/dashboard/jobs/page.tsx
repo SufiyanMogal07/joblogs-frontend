@@ -36,7 +36,8 @@ const JobsContent = () => {
   const searchParam = useSearchParams();
   const query = searchParam.toString();
 
-  const createOrUpdateJob = (data: JobData,id?: number) =>  (id) ? updateJob(data) : createJob(data);
+  const createOrUpdateJob = (data: JobData, id?: number) =>
+    id ? updateJob(data) : createJob(data);
 
   const handleModalOpen = (data?: JobData) => {
     setJobModalOpen(true);
@@ -66,18 +67,20 @@ const JobsContent = () => {
   return (
     <div>
       {/* Header Section */}
-      <div className="w-full px-6 py-4 bg-zinc-800/35 border-b border-zinc-100/10 backdrop-blur-sm z-50 flex items-center justify-between sticky top-0">
+      <div className="w-full px-6 py-4 bg-zinc-800/35 border-b border-zinc-100/10 backdrop-blur-sm z-50 flex flex-col md:flex-row gap-y-4 items-center justify-between sticky top-0">
         <div className="flex items-center gap-4">
-          <span className="p-3 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">
+          <span className="p-2 md:p-3 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">
             <Briefcase size={20} />
           </span>
-          <h1 className="text-xl font-bold tracking-wide">Job Applications</h1>
+          <h1 className="text-lg md:text-xl font-bold tracking-wide">
+            Job Applications
+          </h1>
         </div>
 
         <div className="flex gap-x-6">
           <button
             onClick={() => setJobModalOpen(true)}
-            className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2 rounded-lg font-semibold transition-all"
+            className="flex items-center gap-1 md:gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 text-[14px] md:text-base px-2 md:px-4 py-2 rounded-lg font-semibold transition-all"
           >
             <Plus size={18} />
             Add Job
@@ -87,7 +90,7 @@ const JobsContent = () => {
               setSearch("");
               router.push("/dashboard/jobs");
             }}
-            className="flex items-center gap-2 bg-red-500/80 hover:bg-red-500/50 px-4 py-2 rounded-lg font-semibold transition-all"
+            className="flex items-center gap-1 md:gap-2 bg-red-500/80 hover:bg-red-500/50 text-[14px] md:text-base px-2 md:px-4 py-2 rounded-lg font-semibold transition-all"
           >
             Clear Search
           </button>
