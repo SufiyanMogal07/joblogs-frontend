@@ -5,30 +5,31 @@ import { BriefcaseBusiness, Home, LogOut, Settings, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // New import
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useStore } from "zustand";
 
 const SideBar = () => {
   const { isSidebarOpen } = useStore(useUIStore);
   const pathname = usePathname();
   const router = useRouter();
+  const [isMobile,setIsMobile] = useState();
 
   const sideBarValue = [
     { id: 1, name: "Home", icon: Home, url: "/dashboard" },
     { id: 2, name: "Jobs", icon: BriefcaseBusiness, url: "/dashboard/jobs" },
-     { id: 3, name: "Profile", icon: User, url: "/dashboard/profile" },
+    { id: 3, name: "Profile", icon: User, url: "/dashboard/profile" },
   ];
 
   const logOut = async () => {
     const response = await authLogout();
 
-    if(response.success) router.push('/login')
-  }
+    if (response.success) router.push("/login");
+  };
 
   return (
     <aside
       className={`h-screen bg-slate-900 border-r border-slate-50/10 flex flex-col transition-all duration-200 ease-in-out shrink-0 ${
-        isSidebarOpen ? "w-64" : "w-20"
+        isSidebarOpen ? "w-60" : "w-20"
       }`}
     >
       {/* Brand Header */}
@@ -81,14 +82,17 @@ const SideBar = () => {
 
       {/* Footer Section (Profile/Logout) - Always at bottom */}
       <div className="border-t border-slate-50/10 py-4 px-7">
-        <button onClick={() => {
-          const flag = confirm("Are you sure want to logout!");
+        <button
+          onClick={() => {
+            const flag = confirm("Are you sure want to logout!");
 
-          if(flag) {
-            logOut();
-          }
-        }} className="flex items-center gap-4 w-full text-red-400 hover:text-red-400/90 transition-colors">
-          <LogOut size={22} />
+            if (flag) {
+              logOut();
+            }
+          }}
+          className="flex items-center gap-4 w-full text-red-400 hover:text-red-400/90 transition-colors"
+        >
+          <LogOut size={24} />
           {isSidebarOpen && <span>Logout</span>}
         </button>
       </div>

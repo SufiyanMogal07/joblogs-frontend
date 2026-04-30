@@ -87,12 +87,12 @@ const Header = () => {
       <ChevronsRight
         size={32}
         onClick={toggleSidebar}
-        className={`text-blue-100 ${isSidebarOpen && "rotate-180"}`}
+        className={`text-blue-100 shrink-0 ${isSidebarOpen && "rotate-180"}`}
       />
 
-      <div className="relative w-full max-w-sm">
+      <div className="relative min-w-20 max-w-60 w-full md:max-w-sm">
         <div
-          className="flex-2 flex items-center gap-x-2 px-6 py-2 bg-slate-800/80 relative rounded-xl"
+          className="flex-2 flex items-center gap-x-2 px-2 md:px-6 py-2 bg-slate-800/80 relative rounded-xl"
           ref={searchBarRef}
           onClick={() => {
             if (search.length > 0) {
@@ -136,15 +136,15 @@ const Header = () => {
         </Popup>
       </div>
 
-      <div className="flex items-center gap-x-8">
+      <div className="flex items-center gap-x-8 shrink-0">
         {/* <Bell size={20} /> */}
 
         <button
           ref={profileRef}
           onClick={() => setProfilePopupOpen((prev) => !prev)}
-          className={`flex gap-x-3 p-2 px-4 rounded-4xl items-center hover:bg-slate-800/70 transition-colors ${profilePopupOpen && "bg-slate-800/70"}`}
+          className={`flex gap-x-1 md:gap-x-3 p-2 px-4 rounded-4xl items-center hover:bg-slate-800/70 transition-colors ${profilePopupOpen && "bg-slate-800/70"}`}
         >
-          <span className="bg-blue-500 w-8 aspect-square rounded-full flex items-center justify-center">
+          <span className="bg-blue-500 w-7 md:w-8 aspect-square rounded-full flex items-center justify-center">
             S
           </span>
           <ChevronDown

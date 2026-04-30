@@ -100,7 +100,7 @@ const LoginForm = () => {
 
             <span className="flex justify-center text-[15px] text-slate-300 font-medium mt-2.5">
               Don{"'"}t have an account ? &nbsp;
-              <Link className="text-white underline" href={"/register"}>
+              <Link className="text-white underline" href={"/"}>
                 Register
               </Link>
             </span>
