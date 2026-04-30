@@ -1,6 +1,6 @@
 "use client";
 import { getUserProfile, updateUserProfile } from "@/services/userService";
-import { JobDataSchema, UserProfile, UserProfileSchema } from "@/types";
+import { UserProfile, UserProfileSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Info, Mail, User, User2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -46,9 +46,9 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full h-full flex justify-center px-2 py-4">
+    <div className="w-full h-full flex justify-center px-2 py-2">
       <form
-        className="bg-slate-950/10 border border-slate-50/10 shadow-lg rounded-xl w-150 h-full py-8 px-15 flex flex-col justify-between"
+        className="bg-slate-950/10 border border-slate-50/10 shadow-lg rounded-xl w-150 h-full py-8 px-3 md:px-15 flex flex-col justify-between"
         onSubmit={(e) => e.preventDefault()}
       >
         <div>
