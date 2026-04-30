@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { authLogout } from "@/services/authService";
 
 const Header = () => {
-  const { isSidebarOpen, toggleSidebar } = useStore(useUIStore);
+  const { isSidebarOpen, toggleSidebar,isMobile } = useStore(useUIStore);
 
   const { search, setSearch } = useStore(useJobStore);
   const [jobSuggestion, setJobSuggestion] = useState([]);
@@ -82,15 +82,15 @@ const Header = () => {
 
   return (
     <header
-      className={`flex items-center justify-between bg-slate-900/90 px-4 py-2 border border-slate-50/10 transition-all duration-500 ease-in-out relative`}
+      className={`flex items-center justify-between bg-slate-900/90 px-2.5 md:px-4 lg:px-6 py-2 border border-slate-50/10 transition-all duration-500 ease-in-out relative`}
     >
       <ChevronsRight
-        size={32}
         onClick={toggleSidebar}
         className={`text-blue-100 shrink-0 ${isSidebarOpen && "rotate-180"}`}
+        size={isMobile ? 25 : 26}
       />
 
-      <div className="relative min-w-20 max-w-60 w-full md:max-w-sm">
+      <div className={`relative min-w-20 max-w-60 w-full md:max-w-sm ${isSidebarOpen ? "hidden md:block" : "block"}`}>
         <div
           className="flex-2 flex items-center gap-x-2 px-2 md:px-6 py-2 bg-slate-800/80 relative rounded-xl"
           ref={searchBarRef}
@@ -113,7 +113,7 @@ const Header = () => {
           isOpen={searchPopupOpen}
           onClose={() => setSearchPopupOpen(false)}
           anchorRef={searchBarRef}
-          popupCss="w-full top-16 left-0 w-80 bg-slate-700/60 backdrop-blur-sm transition-all duration-400 ease-in-out"
+          popupCss="top-16 left-0 md:w-80 bg-slate-700/60 backdrop-blur-md transition-all duration-400 ease-in-out"
         >
           {jobSuggestion.map((val: JobData, idx) => {
             return (
@@ -135,6 +135,7 @@ const Header = () => {
           )}
         </Popup>
       </div>
+     
 
       <div className="flex items-center gap-x-8 shrink-0">
         {/* <Bell size={20} /> */}

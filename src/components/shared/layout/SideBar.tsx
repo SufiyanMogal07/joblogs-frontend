@@ -1,18 +1,18 @@
 "use client";
 import { authLogout } from "@/services/authService";
 import { useUIStore } from "@/stores/useUIStore";
-import { BriefcaseBusiness, Home, LogOut, Settings, User } from "lucide-react";
+import { BriefcaseBusiness, Home, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // New import
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { useStore } from "zustand";
+import React, { useEffect } from "react";
 
 const SideBar = () => {
-  const { isSidebarOpen } = useStore(useUIStore);
+  const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
+  const isMobile = useUIStore((state) => state.isMobile);
+  const setIsMobile = useUIStore((state) => state.setIsMobile);
   const pathname = usePathname();
   const router = useRouter();
-  const [isMobile,setIsMobile] = useState();
 
   const sideBarValue = [
     { id: 1, name: "Home", icon: Home, url: "/dashboard" },
@@ -26,11 +26,29 @@ const SideBar = () => {
     if (response.success) router.push("/login");
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const sidebarWidth = isMobile
+    ? isSidebarOpen
+      ? "w-48"
+      : "w-16"
+    : isSidebarOpen
+      ? "w-60"
+      : "w-20";
+
   return (
     <aside
-      className={`h-screen bg-slate-900 border-r border-slate-50/10 flex flex-col transition-all duration-200 ease-in-out shrink-0 ${
-        isSidebarOpen ? "w-60" : "w-20"
-      }`}
+      className={`h-screen bg-slate-900 border-r border-slate-50/10 flex flex-col transition-all duration-200 ease-in-out shrink-0 ${sidebarWidth}`}
     >
       {/* Brand Header */}
       <div className="h-16 flex items-center justify-center border-b border-slate-50/10 shrink-0">
@@ -46,7 +64,7 @@ const SideBar = () => {
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex-1 py-6 px-3 flex flex-col gap-y-3">
+      <nav className="flex-1 py-6 px-2 md:px-3 flex flex-col gap-y-3">
         {sideBarValue.map((item) => {
           const IconComponent = item.icon;
           const isActive = pathname === item.url;
@@ -64,7 +82,7 @@ const SideBar = () => {
               ${isSidebarOpen ? "justify-start" : "justify-center"}`}
             >
               <IconComponent
-                size={22}
+                size={isMobile ? 17 : 22}
                 className={
                   isActive ? "text-amber-500" : "group-hover:text-amber-500"
                 }
@@ -81,7 +99,7 @@ const SideBar = () => {
       </nav>
 
       {/* Footer Section (Profile/Logout) - Always at bottom */}
-      <div className="border-t border-slate-50/10 py-4 px-7">
+      <div className="border-t border-slate-50/10 flex justify-center px-5 py-4 md:px-7">
         <button
           onClick={() => {
             const flag = confirm("Are you sure want to logout!");
@@ -92,7 +110,7 @@ const SideBar = () => {
           }}
           className="flex items-center gap-4 w-full text-red-400 hover:text-red-400/90 transition-colors"
         >
-          <LogOut size={24} />
+          <LogOut size={isMobile ? 19 : 24} />
           {isSidebarOpen && <span>Logout</span>}
         </button>
       </div>
