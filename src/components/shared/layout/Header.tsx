@@ -87,7 +87,7 @@ const Header = () => {
       <ChevronsRight
         onClick={toggleSidebar}
         className={`text-blue-100 shrink-0 ${isSidebarOpen && "rotate-180"}`}
-        size={isMobile ? 25 : 26}
+        size={25}
       />
 
       <div className={`relative min-w-20 max-w-60 w-full md:max-w-sm ${isSidebarOpen ? "hidden md:block" : "block"}`}>

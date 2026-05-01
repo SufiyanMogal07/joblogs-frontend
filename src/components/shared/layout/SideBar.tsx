@@ -28,6 +28,7 @@ const SideBar = () => {
 
   useEffect(() => {
     const handleResize = () => {
+      console.log("Handle Resize Done...");
       setIsMobile(window.innerWidth < 768);
     };
 
@@ -38,20 +39,14 @@ const SideBar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const sidebarWidth = isMobile
-    ? isSidebarOpen
-      ? "w-48"
-      : "w-16"
-    : isSidebarOpen
-      ? "w-60"
-      : "w-20";
+  const sidebarWidth = isSidebarOpen ? "w-48 md:w-60" : "w-16 md:w-20";
 
   return (
     <aside
       className={`h-screen bg-slate-900 border-r border-slate-50/10 flex flex-col transition-all duration-200 ease-in-out shrink-0 ${sidebarWidth}`}
     >
       {/* Brand Header */}
-      <div className="h-16 flex items-center justify-center border-b border-slate-50/10 shrink-0">
+      <div className="h-15 flex items-center justify-center border-b border-slate-50/10 shrink-0">
         <h1 className="text-amber-500 font-bold text-2xl tracking-tighter">
           {isSidebarOpen ? (
             <span>
@@ -83,8 +78,7 @@ const SideBar = () => {
             >
               <IconComponent
                 size={isMobile ? 17 : 22}
-                className={
-                  isActive ? "text-amber-500" : "group-hover:text-amber-500"
+                className={` ${isActive ? "text-amber-500" : "group-hover:text-amber-500"}`
                 }
               />
 

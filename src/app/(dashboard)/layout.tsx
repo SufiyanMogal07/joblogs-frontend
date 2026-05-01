@@ -11,10 +11,9 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
   const {isMobile,isSidebarOpen} = useUIStore();
 
-  console.log(isMobile,isSidebarOpen);
 
   return (
-    <div className="h-dvh md:h-screen w-full flex overflow-hidden">
+    <div className="h-screen w-full flex overflow-hidden">
       <SideBar />
       <div className="flex flex-col flex-1 h-full overflow-hidden">
         <Header />
