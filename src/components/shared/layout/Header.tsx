@@ -113,7 +113,7 @@ const Header = () => {
           isOpen={searchPopupOpen}
           onClose={() => setSearchPopupOpen(false)}
           anchorRef={searchBarRef}
-          popupCss="top-16 left-0 md:w-80 bg-slate-700/60 backdrop-blur-md transition-all duration-400 ease-in-out"
+          popupCss="top-16 left-0 w-full md:w-80 bg-slate-700/60 backdrop-blur-md transition-all duration-400 ease-in-out"
         >
           {jobSuggestion.map((val: JobData, idx) => {
             return (

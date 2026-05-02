@@ -43,11 +43,11 @@ const SideBar = () => {
 
   return (
     <aside
-      className={`h-screen bg-slate-900 border-r border-slate-50/10 flex flex-col transition-all duration-200 ease-in-out shrink-0 ${sidebarWidth}`}
+      className={`h-screen bg-slate-900 border-slate-50/10 flex flex-col transition-all duration-200 ease-in-out shrink-0 ${sidebarWidth}`}
     >
       {/* Brand Header */}
-      <div className="h-15 flex items-center justify-center border-b border-slate-50/10 shrink-0">
-        <h1 className="text-amber-500 font-bold text-2xl tracking-tighter">
+      <div className="flex items-center justify-center border-b border-slate-50/10 shrink-0 py-4">
+        <h1 className="font-sans text-amber-500 font-bold text-2xl tracking-tighter">
           {isSidebarOpen ? (
             <span>
               JOB<span className="text-white">LOG</span>
@@ -77,7 +77,7 @@ const SideBar = () => {
               ${isSidebarOpen ? "justify-start" : "justify-center"}`}
             >
               <IconComponent
-                size={isMobile ? 17 : 22}
+                size={20}
                 className={` ${isActive ? "text-amber-500" : "group-hover:text-amber-500"}`
                 }
               />
