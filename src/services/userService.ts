@@ -9,5 +9,5 @@ export const getUserProfile = async (): ApiResponse => {
 };
 
 export const updateUserProfile = async (data: UserProfile): ApiResponse => {
-  return axiosInstance.post("/user/profile", data);
+  return axiosInstance.patch("/user/profile", data);
 };
