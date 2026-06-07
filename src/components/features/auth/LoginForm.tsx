@@ -4,7 +4,7 @@ import { loginSchema, loginValues } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { authLogin } from "@/services/authService";
@@ -30,9 +30,9 @@ const LoginForm = () => {
 
   const handleLogin = async (data: loginValues) => {
     setLoading(true);
+
     try {
       const response = await authLogin(data);
-
       if (response.success) {
         toast.success(response.message);
         router.push("/dashboard");
@@ -42,13 +42,13 @@ const LoginForm = () => {
     } catch (error) {
     } finally {
       setLoading(false);
-      reset({});
     }
   };
+
   return (
     <>
       <AuthCard title="Login" subHeading="Login to access the JobLogs platform">
-        <form onSubmit={handleSubmit(handleLogin)} noValidate>
+        <form onSubmit={handleSubmit(handleLogin)}>
           <div>
             <label className="form-label" htmlFor="">
               Email

@@ -19,7 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Header />
 
         <main className={`flex-1 overflow-hidden p-3 md:p-4`}>
-          <div className={`h-full overflow-y-auto rounded-lg shadow-2xl border border-slate-800 dashboard-content bg-slate-900 ${isMobile && isSidebarOpen ? "blur-lg" : ""}`}>
+          <div className={`h-full overflow-y-auto rounded-lg shadow-2xl border border-slate-800 dashboard-content bg-slate-900 ${isMobile && isSidebarOpen ? "blur-3xl" : ""}`}>
             {children}
           </div>
         </main>

@@ -80,7 +80,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
   .form-error {
-    @apply text-red-400 text-xs sm:text-sm mx-1 mt-1 min-h-4;
+    @apply text-red-500 text-xs sm:text-sm mx-1 mt-1 min-h-4;
   }
 
   .primary-btn {
@@ -107,9 +107,10 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
 
-  .dashboard-metrics::-webkit-scrollbar {
+  .scrollbar-hide::-webkit-scrollbar , .dashboard-metrics::-webkit-scrollbar {
     display: none;
   }
+
   @keyframes dropdown-in {
     from { opacity: 0; transform: translateY(-6px) scale(0.97); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -142,4 +143,8 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .dashboard-content::-webkit-scrollbar {
   display: none;
+}
+
+.dashboard-btn {
+  @apply flex items-center justify-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1.5 text-xs md:text-sm font-medium text-slate-200 bg-slate-800/40 border border-slate-700/60 hover:bg-slate-700/80 hover:border-slate-500 active:translate-y-px rounded-md transition-all duration-200;
 }

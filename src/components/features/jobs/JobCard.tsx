@@ -5,9 +5,12 @@ import { JobData } from "@/types";
 import { capitalizeWords, formatDate, getStatusBadgeCss, getStatusBorderColor } from "@/utils/utils";
 import {
   Calendar1,
+  CircleEllipsisIcon,
   Edit,
   EllipsisVertical,
+  EllipsisVerticalIcon,
   ExternalLink,
+  LucideEllipsisVertical,
   Notebook,
   Star,
   Trash2,
@@ -42,7 +45,7 @@ const JobCard: React.FC<JobCardProps> = ({
 
   return (
     <div
-      className={`group bg-[#1E293B]/50 backdrop-blur-sm border-slate-800 border-2 rounded-md p-5 transition-all duration-300 hover:shadow-lg ${getStatusBorderColor(job.status)} ${isPopupOpen ? "z-50" : "z-0"}`}
+      className={`group bg-[#1E293B]/50 backdrop-blur-sm border-slate-800 border-2 rounded-lg p-5 transition-all duration-300 hover:shadow-lg ${isPopupOpen ? "z-50" : "z-0"}`}
     >
       <div className="flex items-center justify-between mb-4 relative">
         <p className={getStatusBadgeCss(job.status)}>{job.status}</p>
@@ -50,71 +53,9 @@ const JobCard: React.FC<JobCardProps> = ({
         <EllipsisVertical
           ref={toggleRef}
           onClick={() => setIsPopupOpen(!isPopupOpen)}
-          size={20}
-          className="text-gray-300 hover:text-white cursor-pointer p-0.5 rounded-md hover:bg-slate-700/50 transition-colors"
+          size={26}
+          className="text-gray-300 hover:text-white cursor-pointer px-0.5 py-1 rounded-md hover:bg-slate-700/50 transition-colors"
         />
-
-        {/* {isPopupOpen && (
-          <div
-            ref={dropdownRef}
-            className="popup"
-          >
-            <button
-              onClick={() => {
-                handleFavoriteToggle(job);
-                closePopup();
-              }}
-              className="flex items-center gap-x-3"
-            >
-              <Star
-                className={`${
-                  job.priority
-                    ? "fill-yellow-400 stroke-yellow-500"
-                    : "fill-none stroke-gray-400"
-                }`}
-                size={16}
-              />
-              {job.priority ? "Remove priority" : "Mark as priority"}
-            </button>
-
-            <button
-              onClick={() => {
-                handleModalOpen(job);
-                closePopup();
-              }}
-              className="flex items-center gap-x-3"
-            >
-              <Edit size={16} className="text-blue-400" />
-              Edit job
-            </button>
-
-            {filteredStatuses.map((status) => (
-              <button
-                key={status}
-                onClick={() => {
-                  handleJobStatus(job,status);
-                  closePopup();
-                }
-                 }
-                className="flex items-center gap-x-3"
-              >
-                <span className="w-2 h-2 rounded-full bg-indigo-400 inline-block" />
-                Mark as {status}
-              </button>
-            ))}
-
-            <button
-              onClick={() => {
-                deleteJob(job.id);
-                closePopup();
-              }}
-              className="flex items-center gap-x-3 text-red-400! hover:text-red-300!"
-            >
-              <Trash2 size={16} />
-              Delete job
-            </button>
-          </div>
-        )} */}
 
         <Popup isOpen={isPopupOpen} onClose={closePopup} anchorRef={toggleRef} >
            <button
@@ -183,7 +124,7 @@ const JobCard: React.FC<JobCardProps> = ({
       </h3>
 
       {/* Source */}
-      <div className="flex items-center gap-x-2 mt-3">
+      <div className="flex items-center gap-x-2 mt-3 cursor-pointer">
         <ExternalLink size={16} className="text-gray-400" />
         <span className="text-sm font-medium text-gray-400">
           {capitalizeWords(job.source)}

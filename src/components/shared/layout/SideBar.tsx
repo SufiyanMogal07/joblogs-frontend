@@ -1,7 +1,7 @@
 "use client";
 import { authLogout } from "@/services/authService";
 import { useUIStore } from "@/stores/useUIStore";
-import { BriefcaseBusiness, Home, LogOut, User } from "lucide-react";
+import { BriefcaseBusiness, DownloadCloud, Home, LogOut, UploadCloud, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // New import
 import { useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ const SideBar = () => {
     { id: 1, name: "Home", icon: Home, url: "/dashboard" },
     { id: 2, name: "Jobs", icon: BriefcaseBusiness, url: "/dashboard/jobs" },
     { id: 3, name: "Profile", icon: User, url: "/dashboard/profile" },
+   
   ];
 
   const logOut = async () => {
@@ -28,7 +29,6 @@ const SideBar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("Handle Resize Done...");
       setIsMobile(window.innerWidth < 768);
     };
 
@@ -39,11 +39,17 @@ const SideBar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const sidebarWidth = isSidebarOpen ? "w-48 md:w-60" : "w-16 md:w-20";
+  const sidebarWidth = isMobile
+    ? isSidebarOpen
+      ? "w-58"
+      : "w-16"
+    : isSidebarOpen
+      ? "w-60"
+      : "w-20";
 
   return (
     <aside
-      className={`h-screen bg-slate-900 border-slate-50/10 flex flex-col transition-all duration-200 ease-in-out shrink-0 ${sidebarWidth}`}
+      className={`h-screen bg-slate-900 border-r border-slate-50/10 flex flex-col transition-all duration-300 ease-in-out shrink-0 ${sidebarWidth}`}
     >
       {/* Brand Header */}
       <div className="flex items-center justify-center border-b border-slate-50/10 shrink-0 py-4">
@@ -77,13 +83,14 @@ const SideBar = () => {
               ${isSidebarOpen ? "justify-start" : "justify-center"}`}
             >
               <IconComponent
-                size={20}
-                className={` ${isActive ? "text-amber-500" : "group-hover:text-amber-500"}`
+                size={isMobile ? 17 : 22}
+                className={
+                  isActive ? "text-amber-500" : "group-hover:text-amber-500"
                 }
               />
 
               {isSidebarOpen && (
-                <span className="text-[15px] font-medium transition-opacity duration-300">
+                <span className={`text-[15px] font-medium transition-opacity duration ${!isSidebarOpen && "opacity-0"}`}>
                   {item.name}
                 </span>
               )}
@@ -92,7 +99,6 @@ const SideBar = () => {
         })}
       </nav>
 
-      {/* Footer Section (Profile/Logout) - Always at bottom */}
       <div className="border-t border-slate-50/10 flex justify-center px-5 py-4 md:px-7">
         <button
           onClick={() => {
@@ -102,10 +108,10 @@ const SideBar = () => {
               logOut();
             }
           }}
-          className="flex items-center gap-4 w-full text-red-400 hover:text-red-400/90 transition-colors"
+          className="flex items-center justify-center gap-4 w-full text-red-400 transition-colors"
         >
-          <LogOut size={isMobile ? 19 : 24} />
-          {isSidebarOpen && <span>Logout</span>}
+          <LogOut size={isMobile ? 18 : 20} />
+          {isSidebarOpen && <span className="text-base">Logout</span>}
         </button>
       </div>
     </aside>

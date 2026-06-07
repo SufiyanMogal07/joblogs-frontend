@@ -3,10 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+// const inter = Inter({
+//   variable: "--font-inter",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "JobLog | Job Tracker",
@@ -22,10 +22,31 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased bg-slate-950 max-w-500 mx-auto`}
+        className={` antialiased bg-slate-950 max-w-500 mx-auto`}
       >
         {children}
-        <Toaster richColors position="top-right"/>
+       <Toaster 
+        position="top-right" 
+        richColors 
+        theme="dark"
+        closeButton
+        toastOptions={{
+          classNames: {
+            // Lightened to slate-700, added /90 for slight transparency, and a backdrop blur
+            toast: 'bg-slate-700/90 backdrop-blur-lg border-slate-600 text-slate-50 shadow-2xl',
+            
+            // Text adjustments for better contrast against the lighter slate
+            description: 'text-slate-300',
+            
+            // Buttons upgraded to match the new depth
+            actionButton: 'bg-slate-100 text-slate-900 hover:bg-slate-200 transition-colors font-medium',
+            cancelButton: 'bg-slate-600 text-slate-200 hover:bg-slate-500 transition-colors',
+            
+            // Close button softened to blend nicely
+            closeButton: 'bg-slate-700/50 border-slate-500 text-slate-300 hover:text-slate-50 hover:bg-slate-600 backdrop-blur-md',
+          },
+        }}
+      />
       </body>
     </html>
   );

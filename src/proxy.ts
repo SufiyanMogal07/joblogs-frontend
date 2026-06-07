@@ -8,7 +8,7 @@ export function proxy(request: NextRequest) {
   const isAuthPage = pathname === "/" || pathname.startsWith("/login");
   const isDashboardPage = pathname.startsWith("/dashboard");
 
-  // this one has problem 
+  
   if (token && isAuthPage) {
     return NextResponse.redirect(new URL("/dashboard/jobs", request.url));
   }

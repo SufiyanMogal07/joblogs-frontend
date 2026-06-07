@@ -20,6 +20,12 @@ export const capitalizeWords = (str: string) => {
   return str[0].toUpperCase() + str.slice(1);
 };
 
+export const capitalizeSentence = (strArr: string[]) => {
+  if(!strArr) return strArr;
+
+  return strArr.map((value) => capitalizeWords(value)).join(" ");
+}
+
 const STATUS_CONFIG: Record<JobStatus, { badge: string; border: string }> = {
   draft: {
     badge: "bg-slate-700/35 text-slate-300 border-slate-600",

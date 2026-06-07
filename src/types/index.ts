@@ -16,13 +16,13 @@ const baseAuthObject = z.object({
     .string()
     .trim()
     .min(3, "Name should be atleast of 3 characters!")
-    .max(40, "Name should not exceed 40 characters!"),
+    .max(30, "Name should not exceed 30 characters!"),
   email: z
     .string()
     .trim()
     .email("Invalid email address!")
     .max(50, "Email should not exceed 50 characters!"),
-  password: z.string().min(6).max(10),
+  password: z.string().min(6,"Password should be atleast of 6 characters").max(15,"Password should not exceed 15 characters!"),
 });
 
 export const registerSchema = baseAuthObject.extend({});

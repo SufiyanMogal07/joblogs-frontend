@@ -12,11 +12,12 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     if (axios.isAxiosError(error)) {
-      if (error?.response?.status === 401) {
-        window.location.href = "/login";
-      }
-      const message = error.response?.data?.message ?? "Server not responding";
-      toast.error(message);
+      // if (error?.response?.status === 401) {
+      //   window.location.href = "/login";
+      // }
+      const message = error.response?.data?.message ?? "Something went wrong!";
+      
+      toast.error(message ? message : "");
     }
     return Promise.reject(error);
   },

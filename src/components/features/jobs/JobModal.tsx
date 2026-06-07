@@ -124,7 +124,7 @@
           <h2 className="text-base sm:text-lg md:text-2xl font-bold text-center px-8 tracking-tight">{heading}</h2>
           <button
             type="button"
-            className="p-1.5 rounded-lg hover:bg-gray-700/60 absolute right-2 sm:right-3 md:right-6 transition-colors duration-200 cursor-pointer"
+            className="p-1.5 rounded-full hover:bg-gray-700/60 absolute right-2 sm:right-3 md:right-6 transition-colors duration-200 cursor-pointer"
             onClick={() => {
               reset({});
               handleModalClose();
