@@ -131,7 +131,7 @@ It will expose REST APIs for job management and authentication.
 - [x] Backend API
 - [x] Authentication
 - [x] Frontend–backend integration
-- [ ] Frontend improvement
+- [x] Frontend improvement
 - [ ] Resume upload (single resume, basic)
 - [ ] JD vs Resume match — basic keyword comparison
 - [ ] Testing
