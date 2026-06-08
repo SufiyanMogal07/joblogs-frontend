@@ -36,8 +36,10 @@ export const useJobStore = create<JobStore>((set, get) => ({
     set({ isLoading: true });
     try {
       const result = await getJobs(query);
+      const rawData = result.data ?? [];
+      
       if (result.success) {
-        const cleaned = result.data?.map((job) => {
+        const cleaned = rawData?.map((job) => {
           return {
             ...job,
             appliedAt: job.appliedAt?.split("T")[0],
@@ -58,7 +60,7 @@ export const useJobStore = create<JobStore>((set, get) => ({
 
       if (result.success) {
         toast.success(result.message);
-        get().fetchJobs();
+        await get().fetchJobs();
       } else {
         toast.error(result.message);
       }
@@ -92,7 +94,7 @@ export const useJobStore = create<JobStore>((set, get) => ({
 
       if (result.success) {
         toast.success(result.message);
-         get().fetchJobs();
+        get().fetchJobs();
       } else {
         toast.error(result.message);
       }
@@ -117,12 +119,12 @@ export const useJobStore = create<JobStore>((set, get) => ({
       const result = await deleteJob(id);
       if (result.success) {
         toast.success(result.message);
+        get().clearJobState();
         get().fetchJobs();
       } else {
         toast.error(result.message);
       }
     }
   },
-  clearJobState: () => set({jobs: [], isLoading: false})
-  
+  clearJobState: () => set({ jobs: [], isLoading: false }),
 }));
