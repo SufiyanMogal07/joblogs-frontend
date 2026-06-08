@@ -37,7 +37,7 @@ During my own job search, I had no way to track how many jobs I had applied to, 
 - Zustand
 - Tailwind CSS
 
-### Backend (Planned – separate repository)
+### Backend (Completed – separate repository)
 
 - Node.js
 - Express
