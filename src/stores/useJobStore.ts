@@ -20,6 +20,7 @@ interface JobStore {
   createJob: (job: JobData) => void;
   updateJob: (job: JobData) => void;
   deleteJob: (id: number) => Promise<void>;
+  clearJobState: () => void;
 }
 
 export const useJobStore = create<JobStore>((set, get) => ({
@@ -121,4 +122,6 @@ export const useJobStore = create<JobStore>((set, get) => ({
       }
     }
   },
+  clearJobState: () => set({jobs: [], isLoading: false})
+  
 }));

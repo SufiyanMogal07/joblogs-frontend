@@ -26,7 +26,7 @@ import { capitalizeSentence, capitalizeWords } from "@/utils/utils";
 const Header = () => {
   const { isSidebarOpen, toggleSidebar, isMobile } = useStore(useUIStore);
 
-  const { search, setSearch } = useStore(useJobStore);
+  const { search, setSearch, clearJobState } = useStore(useJobStore);
   const [jobSuggestion, setJobSuggestion] = useState([]);
   const [searchPopupOpen, setSearchPopupOpen] = useState(false);
   const searchBarRef = useRef(null);
@@ -46,7 +46,10 @@ const Header = () => {
     if (flag) {
       const response = await authLogout();
 
-      if (response.success) router.push("/login");
+      if (response.success) {
+        clearJobState();
+        router.push("/login");
+      }
     }
   };
 
@@ -85,13 +88,15 @@ const Header = () => {
     return searchJobSuggestion();
   }, [search]);
 
-  
   useEffect(() => {
     if (search && (!companyName || !position)) setSearch("");
     if (search || !companyName || !position) return;
 
-
-    setSearch(capitalizeSentence(companyName.split("-")) + " - " + capitalizeSentence(position.split("-")));
+    setSearch(
+      capitalizeSentence(companyName.split("-")) +
+        " - " +
+        capitalizeSentence(position.split("-")),
+    );
   }, [companyName, position]);
 
   return (
