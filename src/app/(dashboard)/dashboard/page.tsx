@@ -136,7 +136,7 @@ const Page = () => {
 
   if (loading) {
     return (
-      <div className="dashboard-metrics flex flex-col md:flex-col gap-7 p-6">
+      <div className="dashboard-metrics flex flex-col md:flex-row gap-7 p-6">
         {Array.from({ length: 6 }).map((_, idx) => {
           return <StatCardSkeleton key={idx} />
   })}

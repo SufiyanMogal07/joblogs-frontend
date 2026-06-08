@@ -57,11 +57,11 @@ const JobContent = ({query} : JobsContentType) => {
     setNotesModalOpen(true);
   };
 
+  const jobId = jobs?.findIndex((item) => item.id === notesId);
+
   useEffect(() => {
     fetchJobs(query);
-  }, [query]);
-
-  const jobId = jobs.findIndex((item) => item.id === notesId) ?? 0;
+  }, [query])
 
   return (
     <div>

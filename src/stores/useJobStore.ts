@@ -92,6 +92,7 @@ export const useJobStore = create<JobStore>((set, get) => ({
 
       if (result.success) {
         toast.success(result.message);
+         get().fetchJobs();
       } else {
         toast.error(result.message);
       }
@@ -101,8 +102,8 @@ export const useJobStore = create<JobStore>((set, get) => ({
     if (!data.id) return;
     const result = await updateJob(data);
     if (result.success) {
-      get().fetchJobs();
       toast.success(result.message);
+      get().fetchJobs();
     } else {
       toast.error(result.message);
     }
