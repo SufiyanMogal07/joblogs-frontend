@@ -135,7 +135,7 @@ It will expose REST APIs for job management and authentication.
 - [ ] Resume upload (single resume, basic)
 - [ ] JD vs Resume match — basic keyword comparison
 - [ ] Testing
-- [ ] Deployment
+- [ ] Final Deployment
 
 ### Phase 2 — Resume Intelligence
 
