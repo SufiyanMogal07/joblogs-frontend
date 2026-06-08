@@ -120,7 +120,8 @@ const Page = () => {
       }
     } catch (err) {
     } finally {
-      setLoading(false);
+      setTimeout(() =>setLoading(false), 1000)
+      
     }
   };
 
@@ -135,10 +136,10 @@ const Page = () => {
 
   if (loading) {
     return (
-      <div className="dashboard-metrics flex gap-x-7 p-6">
-        {Array.from({ length: 6 }).map((_, idx) => (
-          <StatCardSkeleton key={idx} />
-        ))}
+      <div className="dashboard-metrics flex flex-col md:flex-col gap-7 p-6">
+        {Array.from({ length: 6 }).map((_, idx) => {
+          return <StatCardSkeleton key={idx} />
+  })}
       </div>
     );
   }

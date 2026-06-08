@@ -13,14 +13,14 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <Suspense fallback={null}>
-      <div className="h-screen w-full flex overflow-hidden">
+      <div className="h-dvh w-full flex overflow-hidden">
         <SideBar />
         <div className="flex flex-col flex-1 h-full overflow-hidden">
           <Header />
 
           <main className={`flex-1 overflow-hidden p-3 md:p-4`}>
             <div
-              className={`h-full overflow-y-auto rounded-lg shadow-2xl border border-slate-800 dashboard-content bg-slate-900 ${isMobile && isSidebarOpen ? "blur-3xl" : ""}`}
+              className={`h-full overflow-y-auto rounded-lg shadow-2xl border border-slate-800 dashboard-content bg-slate-900 ${isMobile && isSidebarOpen ? "blur-3xl pointer-events-none select-none opacity-50 transition-all duration-300" : ""}`}
             >
               {children}
             </div>

@@ -39,7 +39,7 @@ const JobPage: React.FC<JobPageProps> = ({
   }, []);
 
   return (
-    <div className="mt-3">
+    <div className="mx-2 mt-4">
       {jobs.length === 0 && !loading && (
         <div className="flex flex-col justify-center items-center border border-dashed border-gray-700 text-gray-400 rounded-lg h-72">
           {!showNoResult ? (
@@ -47,11 +47,11 @@ const JobPage: React.FC<JobPageProps> = ({
               <h3 className="text-lg font-semibold text-white">
                 No job applications yet
               </h3>
-              <p className="mt-2 mb-4 text-sm">
+              <p className="px-4 md:p-0 mt-2 mb-6 md:mb-4 text-sm text-center">
                 Start tracking your job applications by adding your first one.
               </p>
 
-              <PlusCircleIcon size={54} onClick={() => handleModalOpen()} />
+              <PlusCircleIcon size={48} onClick={() => handleModalOpen()} />
               <button className="mt-3 text-md font-bold">Add Jobs</button>
             </div>
           ) : (
