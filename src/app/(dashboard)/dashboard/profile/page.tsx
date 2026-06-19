@@ -1,5 +1,6 @@
 "use client";
 import { getUserProfile, updateUserProfile } from "@/services/userService";
+import { useUserStore } from "@/stores/useUserStore";
 import { UserProfile, UserProfileSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Info, Mail, User, User2 } from "lucide-react";
@@ -8,7 +9,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const Page = () => {
-  const [profileData, setProfileData] = useState({} as UserProfile);
+  const {setUser,user} = useUserStore();
+  const [profileData, setProfileData] = useState(user);
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
   const { register, handleSubmit,reset } = useForm<UserProfile>({
     resolver: zodResolver(UserProfileSchema),
@@ -22,7 +24,7 @@ const Page = () => {
     const result = await getUserProfile();
 
     if (result.success && result.data) {
-      setProfileData(result.data);
+      setUser(result.data);
       reset(result.data)
     }
   };

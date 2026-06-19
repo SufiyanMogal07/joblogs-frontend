@@ -148,3 +148,39 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .dashboard-btn {
   @apply flex items-center justify-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1.5 text-xs md:text-sm font-medium text-slate-200 bg-slate-800/40 border border-slate-700/60 hover:bg-slate-700/80 hover:border-slate-500 active:translate-y-px rounded-md transition-all duration-200;
 }
+
+/* Custom Sonner styling to match dashboard theme and ensure perfect vertical alignment */
+[data-sonner-toast] {
+  align-items: center !important;
+}
+
+[data-sonner-toast] [data-icon] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+[data-sonner-toast] [data-content] {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  flex: 1 !important;
+}
+
+/* Color success/error/warning/info icons to match their state colors */
+[data-sonner-toast][data-type="success"] [data-icon] {
+  color: #10b981 !important; /* emerald-500 */
+}
+
+[data-sonner-toast][data-type="error"] [data-icon] {
+  color: #f43f5e !important; /* rose-500 */
+}
+
+[data-sonner-toast][data-type="warning"] [data-icon] {
+  color: #f59e0b !important; /* amber-500 */
+}
+
+[data-sonner-toast][data-type="info"] [data-icon] {
+  color: #3b82f6 !important; /* blue-500 */
+}

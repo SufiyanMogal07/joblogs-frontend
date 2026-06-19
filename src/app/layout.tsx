@@ -27,23 +27,21 @@ export default function RootLayout({
         {children}
        <Toaster 
         position="top-right" 
-        richColors 
         theme="dark"
         closeButton
         toastOptions={{
+          unstyled: true,
           classNames: {
-            // Lightened to slate-700, added /90 for slight transparency, and a backdrop blur
-            toast: 'bg-slate-700/90 backdrop-blur-lg border-slate-600 text-slate-50 shadow-2xl',
-            
-            // Text adjustments for better contrast against the lighter slate
-            description: 'text-slate-300',
-            
-            // Buttons upgraded to match the new depth
-            actionButton: 'bg-slate-100 text-slate-900 hover:bg-slate-200 transition-colors font-medium',
-            cancelButton: 'bg-slate-600 text-slate-200 hover:bg-slate-500 transition-colors',
-            
-            // Close button softened to blend nicely
-            closeButton: 'bg-slate-700/50 border-slate-500 text-slate-300 hover:text-slate-50 hover:bg-slate-600 backdrop-blur-md',
+            toast: 'group pointer-events-auto relative flex w-full items-center gap-3.5 overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/95 p-4 pr-10 text-slate-100 shadow-2xl backdrop-blur-xl transition-all duration-300 font-sans border-l-4',
+            title: 'text-[14px] font-semibold text-slate-100 leading-tight',
+            description: 'text-xs text-slate-400 font-normal mt-1 leading-normal',
+            success: '!border-l-emerald-500 !bg-emerald-950/25',
+            error: '!border-l-rose-500 !bg-rose-950/25',
+            warning: '!border-l-amber-500 !bg-amber-950/25',
+            info: '!border-l-blue-500 !bg-blue-950/25',
+            actionButton: 'bg-indigo-600 text-white hover:bg-indigo-500 transition-colors font-semibold text-xs px-3 py-1.5 rounded-md shadow-sm',
+            cancelButton: 'bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors font-medium text-xs px-3 py-1.5 rounded-md border border-slate-700/50',
+            closeButton: 'absolute right-3 top-1/2 -translate-y-1/2 bg-slate-900/50 border border-slate-700/50 text-slate-400 hover:text-slate-200 hover:bg-slate-800 backdrop-blur-md rounded-md p-1 transition-all',
           },
         }}
       />
