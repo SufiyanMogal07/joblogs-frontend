@@ -22,6 +22,8 @@ import { searchJob } from "@/services/jobService";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { authLogout } from "@/services/authService";
 import { capitalizeSentence, capitalizeWords } from "@/utils/utils";
+import { useUserStore } from "@/stores/useUserStore";
+import { getUserProfile } from "@/services/userService";
 
 const Header = () => {
   const { isSidebarOpen, toggleSidebar, isMobile } = useStore(useUIStore);
@@ -33,6 +35,8 @@ const Header = () => {
 
   const [profilePopupOpen, setProfilePopupOpen] = useState(false);
   const profileRef = useRef(null);
+
+  const { user } = useStore(useUserStore);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -166,7 +170,7 @@ const Header = () => {
           className={`flex gap-x-1 md:gap-x-3 p-2 px-4 rounded-4xl items-center hover:bg-slate-800/70 transition-colors ${profilePopupOpen && "bg-slate-800/70"}`}
         >
           <span className="bg-blue-500 w-7 md:w-8 aspect-square rounded-full flex items-center justify-center">
-            S
+            {user?.name?.[0]}
           </span>
           <ChevronDown
             className={`transition-all duration-300 ${profilePopupOpen ? "rotate-180" : ""}`}

@@ -1,8 +1,11 @@
 "use client";
 import Header from "@/components/shared/layout/Header";
 import SideBar from "@/components/shared/layout/SideBar";
+import { getUserProfile } from "@/services/userService";
 import { useUIStore } from "@/stores/useUIStore";
-import React, { Suspense } from "react";
+import { useUserStore } from "@/stores/useUserStore";
+import React, { Suspense, useEffect } from "react";
+import { useStore } from "zustand";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -10,7 +13,19 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   const { isMobile, isSidebarOpen } = useUIStore();
+  const {setUser} = useStore(useUserStore);
 
+  async function getProfileName() {
+    const result = await getUserProfile();
+
+    if(result.success && result.data) {
+      setUser(result.data);
+    }
+  }
+
+  useEffect(() => {
+    getProfileName();
+  }, [])
   return (
     <Suspense fallback={null}>
       <div className="h-dvh w-full flex overflow-hidden">
