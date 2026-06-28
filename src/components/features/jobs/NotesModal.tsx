@@ -16,6 +16,7 @@ const NotesModal = ({
     <Modal
       isModalOpen={isModalOpen}
       setIsModalOpen={setIsModalOpen}
+      handleModalClose={() => {setIsModalOpen(false)}}
       childCss="
     mt-10 md:m-0
     bg-slate-900/95 backdrop-blur-xl
