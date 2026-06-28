@@ -15,23 +15,25 @@ body {
 input[type='date']::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
+
 @layer base {
-.notes-modal::-webkit-scrollbar,
-#jobForm::-webkit-scrollbar {
-  width: 8px;
-}
 
-.notes-modal::-webkit-scrollbar-thumb,
-#jobForm::-webkit-scrollbar-thumb {
-  background: gray;
-  border-radius: 4px;
-}
+  .notes-modal::-webkit-scrollbar,
+  #jobForm::-webkit-scrollbar {
+    width: 8px;
+  }
 
-.notes-modal::-webkit-scrollbar-track,
-#jobForm::-webkit-scrollbar-track {
-  background: rgb(82, 82, 82);
-  border-radius: 4px;
-}
+  .notes-modal::-webkit-scrollbar-thumb,
+  #jobForm::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 4px;
+  }
+
+  .notes-modal::-webkit-scrollbar-track,
+  #jobForm::-webkit-scrollbar-track {
+    background: rgb(82, 82, 82);
+    border-radius: 4px;
+  }
 }
 
 
@@ -87,7 +89,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
     @apply font-semibold text-sm sm:text-[15px] bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-800 rounded-lg px-10 py-2.5 flex items-center gap-x-2 transition-colors duration-200;
   }
 
-   .select-input {
+  .select-input {
     @apply bg-slate-900/80 text-white text-lg px-3 py-2 rounded-md font-semibold;
   }
 
@@ -95,7 +97,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
     @apply text-[16px] bg-slate-800/80 rounded-md px-1 py-2 text-white focus:outline-none md:ml-2;
   }
 
- .popup {
+  .popup {
     @apply absolute z-100 backdrop-blur-xl bg-slate-800/95 border border-slate-600/50 rounded-xl shadow-2xl w-52 flex flex-col right-0 top-10 overflow-hidden font-medium;
     @apply divide-y divide-slate-700/30;
     animation: dropdown-in 0.15s ease-out;
@@ -107,20 +109,33 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
 
-  .scrollbar-hide::-webkit-scrollbar , .dashboard-metrics::-webkit-scrollbar {
+  .scrollbar-hide::-webkit-scrollbar,
+  .dashboard-metrics::-webkit-scrollbar {
     display: none;
   }
 
   @keyframes dropdown-in {
-    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.97);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
-  
 
-  .jobcard-dropdown button:first-child { @apply rounded-t-xl; }
-  .jobcard-dropdown button:last-child { @apply rounded-b-xl; }
-  
+
+  .jobcard-dropdown button:first-child {
+    @apply rounded-t-xl;
+  }
+
+  .jobcard-dropdown button:last-child {
+    @apply rounded-b-xl;
+  }
+
   @keyframes shimmer {
     0% {
       background-position: -1000px 0;
@@ -170,17 +185,21 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 /* Color success/error/warning/info icons to match their state colors */
 [data-sonner-toast][data-type="success"] [data-icon] {
-  color: #10b981 !important; /* emerald-500 */
+  color: #10b981 !important;
+  /* emerald-500 */
 }
 
 [data-sonner-toast][data-type="error"] [data-icon] {
-  color: #f43f5e !important; /* rose-500 */
+  color: #f43f5e !important;
+  /* rose-500 */
 }
 
 [data-sonner-toast][data-type="warning"] [data-icon] {
-  color: #f59e0b !important; /* amber-500 */
+  color: #f59e0b !important;
+  /* amber-500 */
 }
 
 [data-sonner-toast][data-type="info"] [data-icon] {
-  color: #3b82f6 !important; /* blue-500 */
+  color: #3b82f6 !important;
+  /* blue-500 */
 }

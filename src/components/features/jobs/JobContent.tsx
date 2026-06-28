@@ -143,6 +143,7 @@ const JobContent = ({query} : JobsContentType) => {
       />
 
       <JobModal
+       key={editData?.id ?? "new"}
         isEdit={!!editData}
         isModalOpen={jobModalOpen}
         setIsModalOpen={setJobModalOpen}

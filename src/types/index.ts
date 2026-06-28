@@ -22,7 +22,10 @@ const baseAuthObject = z.object({
     .trim()
     .email("Invalid email address!")
     .max(50, "Email should not exceed 50 characters!"),
-  password: z.string().min(6,"Password should be atleast of 6 characters").max(15,"Password should not exceed 15 characters!"),
+  password: z
+    .string()
+    .min(6, "Password should be atleast of 6 characters")
+    .max(15, "Password should not exceed 15 characters!"),
 });
 
 export const registerSchema = baseAuthObject.extend({});
@@ -41,6 +44,16 @@ export const JobApplicationSchema = z
     source: z.enum(JOB_SOURCE, {
       error: () => ({ message: "Job Source is required" }),
     }),
+    jobUrl: z
+      .string()
+      // .min(6, "Job URL must be at least 6 characters.")
+      .max(1000, "Job URL cannot exceed 1000 characters.")
+      .optional(),
+    jobDescription: z
+      .string()
+      // .min(50, "Job description must be at least 50 characters.")
+      .max(5000, "Job description cannot exceed 5000 characters.")
+      .optional(),
     priority: z.boolean(),
     notes: z.string().trim().optional(),
     appliedAt: z
