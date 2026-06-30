@@ -44,7 +44,9 @@ const JobCard: React.FC<JobCardProps> = ({
 
   return (
     <div
-      className={`font-sans group bg-[#1E293B]/50 backdrop-blur-sm border-slate-800 border-2 rounded-lg p-6 transition-all duration-300 hover:shadow-lg ${isPopupOpen ? "z-50" : "z-0"}`}
+      className={`relative flex flex-col h-full font-sans group bg-slate-900 border-slate-700/60 border rounded-xl p-5 sm:p-6 transition-all duration-200 hover:border-slate-500 hover:shadow-lg hover:-translate-y-0.5 ${
+        isPopupOpen ? "z-50" : "z-0"
+      }`}
     >
       <div className="flex items-center justify-between mb-4 relative">
         <p className={getStatusBadgeCss(job.status)}>{job.status}</p>
@@ -56,7 +58,7 @@ const JobCard: React.FC<JobCardProps> = ({
               className={`cursor-pointer transition-colors duration-200 ${
                 job.priority
                   ? "fill-yellow-400 stroke-yellow-500"
-                  : "fill-none stroke-gray-400 hover:stroke-yellow-400"
+                  : "fill-none stroke-slate-400 hover:stroke-yellow-400"
               }`}
               size={18}
             />
@@ -64,8 +66,8 @@ const JobCard: React.FC<JobCardProps> = ({
           <EllipsisVertical
             ref={toggleRef}
             onClick={() => setIsPopupOpen(!isPopupOpen)}
-            size={26}
-            className="text-gray-300 hover:text-white cursor-pointer px-0.5 py-1 rounded-md hover:bg-slate-700/50 transition-colors"
+            size={24}
+            className="text-slate-400 hover:text-slate-200 cursor-pointer px-0.5 py-1 rounded-md hover:bg-slate-800 transition-colors"
           />
         </div>
 
@@ -127,70 +129,67 @@ const JobCard: React.FC<JobCardProps> = ({
       </div>
 
       {/* Company & Position */}
-      <h2 className="text-xl md:text-2xl font-bold text-white truncate leading-tight">
+      <h2 className="text-xl md:text-2xl font-bold text-slate-100 tracking-tight truncate leading-tight mt-1">
         {job.companyName}
       </h2>
-      <h3 className="text-base md:text-lg font-semibold text-gray-300 truncate mt-1">
+      <h3 className="text-[15px] md:text-base font-medium text-slate-400 truncate mt-1">
         {job.position}
       </h3>
 
-      {/* Source */}
-      <Link
-        target={job.jobUrl ? "_blank" : "_self"}
-        href={job.jobUrl || "/dashboard/jobs"}
-      >
-        <div className="flex items-center gap-x-2 mt-3 cursor-pointer">
-          <ExternalLink size={16} className="text-gray-400" />
-          <span className="text-sm font-medium text-gray-400">
+      {/* Source - Styled as a clean pill badge */}
+      <div className="mt-3">
+        <Link
+          target={job.jobUrl ? "_blank" : "_self"}
+          href={job.jobUrl || "/dashboard/jobs"}
+          className="inline-flex items-center gap-x-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700/60 hover:bg-slate-700/80 transition-colors cursor-pointer w-fit"
+        >
+          <ExternalLink size={14} className="text-slate-400" />
+          <span className="text-xs font-medium text-slate-300">
             {capitalizeWords(job.source)}
           </span>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
-      {/* Divider */}
-      {/* <div className="border-t border-gray-600/40 my-4" /> */}
-
+      {/* Notes */}
       <div
-        className="my-5 cursor-pointer group/notes py-4 px-3.5 rounded-lg bg-indigo-400/5  backdrop-blur-sm"
+        className="my-5 flex-grow cursor-pointer group/notes py-3.5 px-4 rounded-lg bg-slate-800/40 border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all duration-200"
         onClick={() => openNotesModal(job.id)}
       >
-        <div className="flex items-center gap-x-2 mb-1.5">
-          <Notebook size={16} className="text-gray-400" />
-          <span className="text-sm font-semibold text-gray-400 uppercase tracking-wide">
+        <div className="flex items-center gap-x-2 mb-2">
+          <Notebook size={14} className="text-slate-400" />
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
             Notes
           </span>
         </div>
-        <p className="text-[15px] text-gray-300 line-clamp-1 leading-relaxed">
-          {job.notes ? job.notes : "No notes yet..."}
+        <p className="text-[14px] text-slate-300 line-clamp-1 leading-relaxed">
+          {job.notes ? job.notes : <span className="italic text-slate-500">No notes yet...</span>}
         </p>
-        <span className="text-sm text-gray-400 group-hover/notes:text-gray-300 font-medium mt-1.5 inline-block transition-colors">
-          Review Notes →
+        <span className="text-[13px] text-slate-500 group-hover/notes:text-slate-300 font-medium mt-2 inline-flex items-center transition-colors">
+          Review Notes <span className="ml-1 opacity-0 group-hover/notes:opacity-100 group-hover/notes:translate-x-1 transition-all">→</span>
         </span>
       </div>
 
       {/* Footer: date + actions */}
-      <div className="flex items-center justify-between pt-2">
-        <div className="flex items-center gap-x-2 text-gray-400">
-          <Calendar1 size={18} />
-          <span className="text-sm font-medium">
+      <div className="mt-auto pt-4 border-t border-slate-700/60 flex items-center justify-between">
+        <div className="flex items-center gap-x-2 text-slate-400">
+          <Calendar1 size={16} />
+          <span className="text-[13px] sm:text-sm font-medium">
             {formatDate(job.appliedAt)}
           </span>
         </div>
 
-        <p
-          className="text-[15px] text-indigo-400 hover:text-indigo-300 
-     cursor-pointer relative"
+        <button
+          className="text-[13px] sm:text-[14px] font-medium text-indigo-400 hover:text-indigo-300 transition-colors relative group/btn"
           onClick={() => handleModalOpen(job)}
         >
           View More
           {(!job.jobUrl || !job.jobDescription || !job.source) && (
             <span
-              className="absolute -top-1 -right-1.5 w-2 h-2 
-             rounded-full bg-amber-400 animate-pulse"
-              title="Some fields are incomplete" // bas yeh ek line
+              className="absolute -top-1 -right-2 w-2 h-2 rounded-full bg-amber-400 animate-pulse"
+              title="Some fields are incomplete"
             />
           )}
-        </p>
+        </button>
       </div>
     </div>
   );

@@ -137,7 +137,6 @@ const JobModal = ({
     <Modal
       isModalOpen={isModalOpen}
       childCss={childCss}
-      setIsModalOpen={setIsModalOpen}
       handleModalClose={handleModalClose}
     >
       <div className="sticky top-0 flex items-center justify-center border-b border-gray-700/80 px-4 py-3.5 sm:p-5 shrink-0 bg-gray-900 rounded-t-xl z-10">

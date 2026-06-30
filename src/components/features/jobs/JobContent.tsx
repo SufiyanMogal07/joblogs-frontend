@@ -8,6 +8,7 @@ import JobPage from "@/components/features/jobs/JobPage";
 import JobModal from "@/components/features/jobs/JobModal";
 import NotesModal from "@/components/features/jobs/NotesModal";
 import { useRouter } from "next/navigation";
+import JobDateModal from "./JobDateModal";
 
 type JobsContentType = {
   query: string
@@ -80,7 +81,7 @@ const JobContent = ({query} : JobsContentType) => {
         <div className="px-4 md:w-auto mx-2 flex justify-center gap-x-6 gap-y-4">
           {/* <button
               onClick={() => {}}
-              className="dashboard-btn hidden! md:block!"
+              className="dashboard-btn hidden! md:flex!"
             >
               <SortAsc size={16} />
               Sort By
@@ -88,7 +89,7 @@ const JobContent = ({query} : JobsContentType) => {
 
             <button
               onClick={() => {}}
-              className="dashboard-btn hidden! md:block!"
+              className="dashboard-btn hidden! md:flex!"
             >
               <FilterIcon size={16} />
               Filter By
@@ -141,6 +142,8 @@ const JobContent = ({query} : JobsContentType) => {
         handleJobStatus={handleJobStatus}
         openNotesModal={openNotesModal}
       />
+
+      <JobDateModal/>
 
       <JobModal
        key={editData?.id ?? "new"}

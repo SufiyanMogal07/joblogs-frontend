@@ -11,8 +11,11 @@ import { create } from "zustand";
 
 interface JobStore {
   jobs: JobData[];
+  datePopup: boolean;
+  pendingStatusUpdate?: { job: JobData; status: JobStatus } | null;
   isLoading: boolean;
   search: string;
+  setDatePopupClose: () => void;
   setSearch: (query: string) => void;
   fetchJobs: (query?: string) => Promise<void>;
   handlePriority: (job: JobData) => Promise<void>;
@@ -20,13 +23,17 @@ interface JobStore {
   createJob: (job: JobData) => void;
   updateJob: (job: JobData) => void;
   deleteJob: (id: number) => Promise<void>;
+  confirmStatusUpdateWithDate: (appliedDate: string) => Promise<void>;
+  clearDateData: () => void;
   clearJobState: () => void;
 }
 
 export const useJobStore = create<JobStore>((set, get) => ({
-  jobs: [],
+  jobs: [] as JobStore["jobs"],
+  datePopup: false,
   isLoading: false,
   search: "",
+  setDatePopupClose: () => set({ datePopup: false }),
   setSearch: (query) => {
     if (typeof query !== "string") return;
 
@@ -37,7 +44,7 @@ export const useJobStore = create<JobStore>((set, get) => ({
     try {
       const result = await getJobs(query);
       const rawData = result.data ?? [];
-      
+
       if (result.success) {
         const cleaned = rawData?.map((job) => {
           return {
@@ -67,11 +74,14 @@ export const useJobStore = create<JobStore>((set, get) => ({
     } catch (error) {}
   },
   handleJobStatus: async (job, status) => {
-    const appliedDate = job.appliedAt;
-    const date = new Date();
-
-    job.appliedAt =
-      status !== "draft" && !job.appliedAt ? date.toISOString() : appliedDate;
+    if (status !== "draft" && !job.appliedAt) {
+      set({
+        datePopup: true,
+        pendingStatusUpdate: { job, status },
+      });
+      return;
+    }
+    // job.appliedAt = status !== "draft" && !job.appliedAt ? date.toISOString() : appliedDate;
 
     try {
       const result = await updateJob({ ...job, status });
@@ -126,5 +136,26 @@ export const useJobStore = create<JobStore>((set, get) => ({
       }
     }
   },
+  confirmStatusUpdateWithDate: async (appliedDate) => {
+    const { pendingStatusUpdate } = get();
+    if (!pendingStatusUpdate) return;
+
+    const { job, status } = pendingStatusUpdate;
+    try {
+      const result = await updateJob({
+        ...job,
+        status,
+        appliedAt: appliedDate,
+      });
+
+      if (result.success) {
+        toast.success(result.message);
+        get().fetchJobs();
+
+        set({ datePopup: false, pendingStatusUpdate: null });
+      }
+    } catch (error) {}
+  },
+  clearDateData: () => set({ datePopup: false, pendingStatusUpdate: null }),
   clearJobState: () => set({ jobs: [], isLoading: false }),
 }));

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 type ModalProps = {
   isModalOpen: boolean;
-  setIsModalOpen: (open: boolean) => void;
+  // setIsModalOpen: (open: boolean) => void;
   childCss: string;
   handleModalClose: () => void;
   children?: React.ReactNode;
@@ -11,7 +11,7 @@ type ModalProps = {
 
 const Modal = ({
   isModalOpen,
-  setIsModalOpen,
+  // setIsModalOpen,
   handleModalClose,
   childCss,
   children,
