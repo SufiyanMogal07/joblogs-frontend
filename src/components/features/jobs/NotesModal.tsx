@@ -15,7 +15,6 @@ const NotesModal = ({
   return (
     <Modal
       isModalOpen={isModalOpen}
-      setIsModalOpen={setIsModalOpen}
       handleModalClose={() => {setIsModalOpen(false)}}
       childCss="
     mt-10 md:m-0
