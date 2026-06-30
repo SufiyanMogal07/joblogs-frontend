@@ -178,9 +178,9 @@ const JobCard: React.FC<JobCardProps> = ({
           </span>
         </div>
 
-        <button
+        <Link
           className="text-[13px] sm:text-[14px] font-medium text-indigo-400 hover:text-indigo-300 transition-colors relative group/btn"
-          onClick={() => handleModalOpen(job)}
+          href={`/dashboard/jobs/${job.id}`}
         >
           View More
           {(!job.jobUrl || !job.jobDescription || !job.source) && (
@@ -189,7 +189,7 @@ const JobCard: React.FC<JobCardProps> = ({
               title="Some fields are incomplete"
             />
           )}
-        </button>
+        </Link>
       </div>
     </div>
   );

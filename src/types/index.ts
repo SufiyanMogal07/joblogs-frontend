@@ -46,12 +46,10 @@ export const JobApplicationSchema = z
     }),
     jobUrl: z
       .string()
-      // .min(6, "Job URL must be at least 6 characters.")
       .max(1000, "Job URL cannot exceed 1000 characters.")
       .optional(),
     jobDescription: z
       .string()
-      // .min(50, "Job description must be at least 50 characters.")
       .max(5000, "Job description cannot exceed 5000 characters.")
       .optional(),
     priority: z.boolean(),
@@ -61,6 +59,8 @@ export const JobApplicationSchema = z
         error: () => ({ message: "Applied Date is required" }),
       })
       .optional(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
   })
   .superRefine((data, ctx) => {
     if (data.status !== "draft" && !data.appliedAt) {

@@ -33,7 +33,6 @@ const childCss =
 const JobModal = ({
   isEdit = false,
   isModalOpen,
-  setIsModalOpen,
   handleModalClose,
   createorUpdateJob,
   editData,
@@ -62,6 +61,10 @@ const JobModal = ({
       priority: false,
       appliedAt: currentDate,
       notes: "",
+      jobDescription: "",
+      jobUrl: "",
+      createdAt: currentDate,
+      updatedAt: currentDate,
     },
   });
 
