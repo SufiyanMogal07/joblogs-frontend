@@ -1,28 +1,54 @@
-# JobLog - Jobs Application Tracker (Frontend)
+# JobLog - Job Application Tracker (Frontend)
 
-The frontend of JobLog — a full-stack job application tracker.
-This repository contains only the frontend built with Next.js, TypeScript, and Tailwind CSS.
+JobLog is a full-stack job application tracker that helps job seekers organize applications, track interview progress, and manage their job search in one place.
 
----
-
-[Live Demo](https://joblogs.sufiyanmogal.me/)
+This repository contains the frontend application built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**. The backend is maintained in a separate repository.
 
 ---
 
-## Problem It Solves
+## Live Demo
 
-During my own job search, I had no way to track how many jobs I had applied to, which companies hadn't responded, or whether my resume was actually working. JobLog is a personal digital diary for your job search — so you always know where you stand and what to improve.
+🌐 https://joblogs.sufiyanmogal.me/
+
+---
+
+## Overview
+
+Managing job applications across multiple job boards can quickly become difficult. JobLog provides a single place to manage applications, monitor progress, and keep important notes throughout the job search.
 
 ---
 
 ## Features
 
-- Jobs Metrics and Graphs
-- Add, edit, and delete job applications
-- Global Search by company name or position
-- Mark jobs as favourite
-- Notes for each job
-- Responsive UI with modals
+### Authentication
+
+- User registration and login
+- JWT authentication
+- Protected routes
+
+### Job Management
+
+- Create, edit, and delete job applications
+- Track application status
+- Mark jobs as favourites
+- Add notes to applications
+
+### Dashboard
+
+- Application overview
+- Status distribution
+- Interview tracking
+
+### Search & Filtering
+
+- Global search
+- Quick filtering
+
+### User Experience
+
+- Responsive design
+- Form validation
+- Loading and error states
 - Fully typed with TypeScript
 
 ---
@@ -32,139 +58,121 @@ During my own job search, I had no way to track how many jobs I had applied to, 
 ### Frontend
 
 - Next.js (App Router)
+- React
 - TypeScript
-- React Hook Form
-- Zustand
 - Tailwind CSS
+- Zustand
+- React Hook Form
 
-### Backend (Completed – separate repository)
+### Backend
 
 - Node.js
-- Express
+- Express.js
+- REST API
+- JWT Authentication
+
+### Database
+
 - PostgreSQL
 - Prisma ORM
-- Authentication (JWT)
+
+### Deployment
+
+- Vercel
+- Render
 
 ---
 
-## Getting Started
+## Architecture
 
-1. Clone the repository
-
-```bash
-   git clone https://github.com/SufiyanMogal07/joblogs-frontend.git
+```text
+Next.js Frontend
+       │
+   REST API
+       │
+ Express.js Backend
+       │
+   Prisma ORM
+       │
+  PostgreSQL
 ```
-
-2. Ensure you have Node.js 20+ installed
-
-   Download from [nodejs.org](https://nodejs.org/) or use a version manager like `nvm`:
-
-```bash
-   nvm install 20
-   nvm use 20
-```
-
-3. Install pnpm package from npm
-
-```bash
-   npm install -g pnpm
-```
-
-4. Install dependencies
-
-```bash
-   pnpm install
-```
-
-5. Set up environment variables
-
-```bash
-   cp .env.example .env
-```
-
-6. Start the development server
-
-```bash
-   pnpm run dev
-```
-
-7. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
 ## Project Structure
 
-- `src/app/` – Next.js routing and layouts
-
-- `src/components/` – Reusable UI components
-
-- `src/constants/` – App-wide constants (status types, dropdown options, config values)
-
-- `src/hooks/` – Custom React hooks
-
-- `src/lib/` – Third-party library configs (e.g. axios instance, query client setup)
-
-- `src/services/` – API service functions for backend communication
-
-- `src/types/` – Shared TypeScript types and interfaces
-
-- `src/utils/` – Helper/utility functions
-
-- `src/.proxy.ts` – Dev proxy configuration for API routing
+```text
+src/
+├── app/
+├── components/
+├── constants/
+├── hooks/
+├── lib/
+├── services/
+├── stores/
+├── types/
+└── utils/
+```
 
 ---
 
-## Backend
+## Getting Started
 
-The backend is ready as separate Node.js and Express server with PostgreSQL and Prisma.
-It will expose REST APIs for job management and authentication.
+Clone the repository
 
-### [Backend Repository](https://github.com/SufiyanMogal07/joblogs-backend)
+```bash
+git clone https://github.com/SufiyanMogal07/joblogs-frontend.git
+```
 
----
+Install dependencies
 
-## Roadmap
+```bash
+pnpm install
+```
 
-### Phase 1 — Foundation
+Configure environment variables
 
-- [x] Frontend UI
-- [x] Backend API
-- [x] Authentication
-- [x] Frontend–backend integration
-- [x] Frontend improvement
-- [ ] Resume upload (single resume, basic)
-- [ ] JD vs Resume match — basic keyword comparison
-- [ ] Testing
-- [ ] Final Deployment
+```bash
+cp .env.example .env
+```
 
-### Phase 2 — Resume Intelligence
+Start the development server
 
-- [ ] Multiple resume versions (up to 4, role-based labels)
-- [ ] Resume linked to each job application
-- [ ] Advanced JD vs Resume analyzer (match score + missing keywords + suggestions)
-- [ ] Auto resume suggestion when adding a new job
-- [ ] Resume performance score (which resume gets most interviews/offers)
-- [ ] Resume update suggestions based on JD keywords
-- [ ] Auto-ghosted detection (no response after 30 days)
-- [ ] Enhanced interview notes per job
+```bash
+pnpm dev
+```
 
-### Phase 3 — Growth & Automation
+Open:
 
-- [ ] Browser extension for one-click job capture from any job board
-- [ ] Notifications and follow-up reminders
-- [ ] Resume template recommendations based on role and profile
-- [ ] AI-powered cover letter generator from JD + resume
-- [ ] Job application analytics dashboard (response rate, offer trends)
+```
+http://localhost:3000
+```
 
 ---
 
 ## What I Learned
 
-- Architecting a production-grade frontend with Next.js App Router and TypeScript
-- Managing complex client-side state with Zustand across a large feature set
-- Building a scalable component structure with reusability in mind
-- Integrating a REST API with proper error handling and loading states
-- Improving UI/UX through iteration — responsiveness, modals, and accessibility
-- Strengthening Git workflow and project organization practices
+Building JobLog helped me gain experience with:
+
+- Structuring a production-style Next.js application
+- Building reusable React components
+- Managing global state with Zustand
+- Integrating REST APIs
+- Working with TypeScript across a larger codebase
+- Building responsive dashboard interfaces
+- Improving project organization as the application grew
 
 ---
+
+## Future Development
+
+Upcoming features and project decisions will be documented separately.
+
+- `docs/FUTURE_FEATURES.md`
+- `docs/DECISIONS.md`
+
+---
+
+## Backend Repository
+
+https://github.com/SufiyanMogal07/joblogs-backend
