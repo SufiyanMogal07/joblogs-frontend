@@ -1,5 +1,7 @@
 import { axiosInstance } from "@/lib/axios";
-import { ApiResponse, JobApplication, JobData } from "@/types";
+import { ApiResponse, JobApplication, JobData, userIdType } from "@/types";
+
+// export const getJobMetaData = async () => await axiosInstance.get("/jobs/meta-data");
 
 export const createJob = async (data: JobApplication): ApiResponse =>
   await axiosInstance.post("/jobs", data);
@@ -14,7 +16,7 @@ export const updateJob = async (data: JobData): ApiResponse => {
   return result.data ?? result;
 };
 
-export const deleteJob = async (id: number): ApiResponse => {
+export const deleteJob = async (id: userIdType): ApiResponse => {
   const result = await axiosInstance.delete(`/jobs/${id}`);
 
   return result.data ?? result;
