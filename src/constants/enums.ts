@@ -2,8 +2,10 @@ export const JOB_STATUS = [
   "draft",
   "applied",
   "interviewing",
+  "onhold",
   "offer",
-  "rejected"
+  "rejected",
+  "ghosted"
 ] as const;
 
 export const editableJobStatus = [...JOB_STATUS];
@@ -13,6 +15,8 @@ export const JOB_SOURCE = [
   "indeed",
   "company_website",
   "referral",
+  "cold_call",
+  "cold_email",
   "other",
 ] as const;
 

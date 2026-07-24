@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/components/shared/layout/Header";
 import SideBar from "@/components/shared/layout/SideBar";
-import { getUserProfile } from "@/services/userService";
+import { getUserProfile } from "@/services/user.service";
 import { useUIStore } from "@/stores/useUIStore";
 import { useUserStore } from "@/stores/useUserStore";
 import React, { Suspense, useEffect } from "react";
@@ -35,7 +35,7 @@ const Layout = ({ children }: LayoutProps) => {
 
           <main className={`flex-1 overflow-hidden p-3 md:p-4`}>
             <div
-              className={`h-full overflow-y-auto rounded-lg shadow-2xl border border-slate-800 dashboard-content bg-slate-900 ${isMobile && isSidebarOpen ? "blur-3xl pointer-events-none select-none opacity-50 transition-all duration-300" : ""}`}
+              className={`bg-surface h-full overflow-y-auto rounded-lg shadow-2xl border border-border/50 dashboard-content ${isMobile && isSidebarOpen ? "blur-3xl pointer-events-none select-none opacity-50 transition-all duration-300" : ""}`}
             >
               {children}
             </div>

@@ -1,8 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --background: #1c1c1c;
-  --foreground: #ededed;
+@theme {
+  --color-background: #020617;
+  --color-surface: #0f172a;
+  --color-card: #131b2e;
+  --color-overlay: #334155;
+
+  --color-text: #f8fafc;
+  --color-text-muted: #cbd5e1;
+  --color-text-disabled: #64748b;
+
+  /* ==================================
+     Borders
+     ================================== */
+
+  --color-border: #2a3548;
+  --color-border-hover: #475569;
+
+  /* ==================================
+     Brand
+     ================================== */
+
+  --color-primary: #f59e0b;
+  /* amber-500 */
+  --color-primary-hover: #fbbf24;
+  /* amber-400 */
+  --color-primary-foreground: #111827;
+
+  /* ==================================
+     Feedback
+     ================================== */
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  /* ==================================
+     Job Status
+     ================================== */
+
+  --color-status-applied: #60a5fa;
+  --color-status-interviewing: #f59e0b;
+  --color-status-offer: #4ade80;
+  --color-status-rejected: #94a3b8;
 }
 
 
@@ -10,6 +51,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: var(--foreground);
 }
+
 
 /* Input's and Modal's Scroll css */
 input[type='date']::-webkit-calendar-picker-indicator {
@@ -98,14 +140,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
   .popup {
-    @apply absolute z-100 backdrop-blur-xl bg-slate-800/95 border border-slate-600/50 rounded-xl shadow-2xl w-52 flex flex-col right-0 top-10 overflow-hidden font-medium;
+    @apply absolute z-100 backdrop-blur-lg text-text border bg-slate-800/50 border-border rounded-xl shadow-2xl w-52 flex flex-col right-0 top-10 overflow-hidden font-medium;
     @apply divide-y divide-slate-700/30;
     animation: dropdown-in 0.15s ease-out;
   }
 
   .popup button {
-    @apply py-3 px-4 text-[14px] text-slate-200 font-medium text-left transition-colors duration-150;
-    @apply hover:bg-indigo-500/15 hover:text-white;
+    @apply py-3 px-4 text-[14px] text-text font-medium text-left transition-colors duration-150;
+    @apply hover:bg-slate-900 hover:text-white;
   }
 
 
@@ -165,7 +207,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .datepopup-btn {
-  @apply  px-2.5 py-0.5 rounded;
+  @apply px-2.5 py-0.5 rounded;
 }
 
 
