@@ -1,11 +1,12 @@
+import { withToast } from "@/components/shared/others/Toaster";
 import { JobStatus } from "@/constants/enums";
 import {
   createJob,
   deleteJob,
   getJobs,
   updateJob,
-} from "@/services/jobService";
-import { JobData, responseType } from "@/types";
+} from "@/services/job.service";
+import { JobData, responseType, userIdType } from "@/types";
 import { toast } from "sonner";
 import { create } from "zustand";
 
@@ -22,8 +23,9 @@ interface JobStore {
   handleJobStatus: (job: JobData, status: JobStatus) => Promise<void>;
   createJob: (job: JobData) => void;
   updateJob: (job: JobData) => void;
-  deleteJob: (id: number) => Promise<void>;
+  deleteJob: (id: userIdType) => Promise<void>;
   confirmStatusUpdateWithDate: (appliedDate: string) => Promise<void>;
+  // getJobMetaData: () => Promise<void>;
   clearDateData: () => void;
   clearJobState: () => void;
 }
@@ -62,16 +64,24 @@ export const useJobStore = create<JobStore>((set, get) => ({
     }
   },
   handlePriority: async (job) => {
-    try {
+    const promise = (async () => {
       const result = await updateJob({ ...job, priority: !job.priority });
 
-      if (result.success) {
-        toast.success(result.message);
-        await get().fetchJobs();
-      } else {
-        toast.error(result.message);
+      if (!result.success) {
+        throw new Error(result.message);
       }
-    } catch (error) {}
+      await get().fetchJobs();
+
+      return result.message;
+    })();
+
+    withToast(promise);
+
+    // toast.promise(promise, {
+    //   loading: "Updating priority...",
+    //   success: (message) => message,
+    //   error: (err) => err.message,
+    // });
   },
   handleJobStatus: async (job, status) => {
     if (status !== "draft" && !job.appliedAt) {
@@ -81,7 +91,6 @@ export const useJobStore = create<JobStore>((set, get) => ({
       });
       return;
     }
-    // job.appliedAt = status !== "draft" && !job.appliedAt ? date.toISOString() : appliedDate;
 
     try {
       const result = await updateJob({ ...job, status });
