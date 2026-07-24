@@ -30,13 +30,13 @@ const JobContent = ({query} : JobsContentType) => {
   const [editData, setEditData] = useState<JobData | null>(null);
   const [jobModalOpen, setJobModalOpen] = useState<boolean>(false);
   const [notesModalOpen, setNotesModalOpen] = useState<boolean>(false);
-  const [notesId, setNotesId] = useState<number | null>(null);
+  const [notesId, setNotesId] = useState<string | null>(null);
   const [filter, setFilter] = useState<JobStatus>(
     "" as JobApplication["status"],
   );
   const router = useRouter();
 
-  const createOrUpdateJob = (data: JobData, id?: number) =>
+  const createOrUpdateJob = (data: JobData, id?: string) =>
     id ? updateJob(data) : createJob(data);
 
   const handleModalOpen = (data?: JobData) => {
@@ -53,7 +53,7 @@ const JobContent = ({query} : JobsContentType) => {
     setEditData(null);
   };
 
-  const openNotesModal = (id: number) => {
+  const openNotesModal = (id: string) => {
     setNotesId(id);
     setNotesModalOpen(true);
   };
@@ -67,13 +67,13 @@ const JobContent = ({query} : JobsContentType) => {
   return (
     <div>
       {/* Header Section */}
-      <div className="w-full py-4 bg-zinc-800/35 border-b border-zinc-100/10 backdrop-blur-sm z-50 gap-y-4 sticky top-0 overflow-hidden flex justify-between flex-wrap">
+      <div className="w-full py-4 border-b border-border bg-amber-200/5 backdrop-blur-sm z-50 gap-y-4 sticky top-0 overflow-hidden flex justify-between flex-wrap">
         {/* <div className="w-full flex"> */}
         <div className="px-6 flex items-center gap-4">
-          <span className="p-2 md:p-3 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">
+          <span className="p-2 md:p-3 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">  
             <Briefcase size={20} />
           </span>
-          <h1 className="text-lg md:text-xl font-bold tracking-wide">
+          <h1 className="text-lg md:text-xl text-text font-bold tracking-wide">
             Job Applications
           </h1>
         </div>

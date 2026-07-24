@@ -1,10 +1,10 @@
 "use client";
 import Popup from "@/components/ui/Popup";
 import { editableJobStatus, JobStatus } from "@/constants/enums";
-import { updateJob } from "@/services/jobService";
-import { JobData } from "@/types";
-import { capitalizeWords, formatDate, getStatusBadgeCss } from "@/utils/utils";
+import { JobData, userIdType } from "@/types";
+import { capitalizeSentence, capitalizeWords, formatDate, getStatusBadgeCss } from "@/utils/utils";
 import {
+  ArrowBigDown,
   Calendar1,
   Edit,
   EllipsisVertical,
@@ -19,10 +19,10 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 type JobCardProps = {
   job: JobData;
   handleModalOpen: (data?: JobData) => void;
-  deleteJob: (id: number) => void;
+  deleteJob: (id: userIdType) => void;
   handleFavoriteToggle: (job: JobData) => void;
   handleJobStatus: (job: JobData, status: JobStatus) => void;
-  openNotesModal: (id: number) => void;
+  openNotesModal: (id: userIdType) => void;
 };
 
 const JobCard: React.FC<JobCardProps> = ({
@@ -42,33 +42,47 @@ const JobCard: React.FC<JobCardProps> = ({
 
   const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
+  const missingFields = !job.jobUrl || !job.jobDescription || !job.source;
+
   return (
     <div
-      className={`relative flex flex-col h-full font-sans group bg-slate-900 border-slate-700/60 border rounded-xl p-5 sm:p-6 transition-all duration-200 hover:border-slate-500 hover:shadow-lg hover:-translate-y-0.5 ${
+      className={`relative flex flex-col h-full font-sans group bg-card border border-border/60 rounded-lg p-5 sm:p-6 transition-colors duration-150 ${
         isPopupOpen ? "z-50" : "z-0"
       }`}
     >
-      <div className="flex items-center justify-between mb-4 relative">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-6 relative">
+
         <p className={getStatusBadgeCss(job.status)}>{job.status}</p>
 
-        <div className="flex gap-x-3">
-          <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-1 -mr-1.5 -mt-1">
+          <button
+            type="button"
+            onClick={() => handleFavoriteToggle(job)}
+            aria-label={job.priority ? "Remove priority" : "Mark as priority"}
+            className="p-1.5 rounded-md hover:bg-slate-800 transition-colors"
+          >
             <Star
-              onClick={() => handleFavoriteToggle(job)}
-              className={`cursor-pointer transition-colors duration-200 ${
+              className={`transition-colors duration-150 ${
                 job.priority
-                  ? "fill-yellow-400 stroke-yellow-500"
-                  : "fill-none stroke-slate-400 hover:stroke-yellow-400"
+                  ? "fill-amber-400/90 stroke-amber-400/90"
+                  : "fill-none stroke-slate-500 hover:stroke-slate-300"
               }`}
-              size={18}
+              size={16}
             />
-          </div>
-          <EllipsisVertical
-            ref={toggleRef}
+          </button>
+          <button
+            type="button"
             onClick={() => setIsPopupOpen(!isPopupOpen)}
-            size={24}
-            className="text-slate-400 hover:text-slate-200 cursor-pointer px-0.5 py-1 rounded-md hover:bg-slate-800 transition-colors"
-          />
+            aria-label="More options"
+            className="px-[0.1px] rounded-md hover:bg-slate-800 transition-colors"
+          >
+            <EllipsisVertical
+              ref={toggleRef}
+              size={18}
+              className="text-slate-500 group-hover:text-slate-400"
+            />
+          </button>
         </div>
 
         <Popup isOpen={isPopupOpen} onClose={closePopup} anchorRef={toggleRef}>
@@ -82,10 +96,10 @@ const JobCard: React.FC<JobCardProps> = ({
             <Star
               className={`${
                 job.priority
-                  ? "fill-yellow-400 stroke-yellow-500"
-                  : "fill-none stroke-gray-400"
+                  ? "fill-amber-400 stroke-amber-400"
+                  : "fill-none stroke-slate-400"
               }`}
-              size={16}
+              size={15}
             />
             {job.priority ? "Remove priority" : "Mark as priority"}
           </button>
@@ -97,7 +111,7 @@ const JobCard: React.FC<JobCardProps> = ({
             }}
             className="flex items-center gap-x-3"
           >
-            <Edit size={16} className="text-blue-400" />
+            <Edit size={15} className="text-slate-400" />
             Edit job
           </button>
 
@@ -110,7 +124,7 @@ const JobCard: React.FC<JobCardProps> = ({
               }}
               className="flex items-center gap-x-3"
             >
-              <span className="w-2 h-2 rounded-full bg-indigo-400 inline-block" />
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />
               Mark as {status}
             </button>
           ))}
@@ -122,74 +136,69 @@ const JobCard: React.FC<JobCardProps> = ({
             }}
             className="flex items-center gap-x-3 text-red-400! hover:text-red-300!"
           >
-            <Trash2 size={16} />
+            <Trash2 size={15} />
             Delete job
           </button>
         </Popup>
       </div>
 
       {/* Company & Position */}
-      <h2 className="text-xl md:text-2xl font-bold text-slate-100 tracking-tight truncate leading-tight mt-1">
+      <h2 className="text-lg md:text-xl font-semibold text-slate-100 tracking-tight truncate leading-tight">
         {job.companyName}
       </h2>
-      <h3 className="text-[15px] md:text-base font-medium text-slate-400 truncate mt-1">
+      <h3 className="text-md text-slate-400 truncate mt-0.5">
         {job.position}
       </h3>
 
-      {/* Source - Styled as a clean pill badge */}
+      {/* Source */}
       <div className="mt-3">
         <Link
           target={job.jobUrl ? "_blank" : "_self"}
           href={job.jobUrl || "/dashboard/jobs"}
-          className="inline-flex items-center gap-x-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700/60 hover:bg-slate-700/80 transition-colors cursor-pointer w-fit"
+          className="inline-flex items-center gap-x-1.5 text-xs text-slate-400 hover:text-slate-300 transition-colors"
         >
-          <ExternalLink size={14} className="text-slate-400" />
-          <span className="text-xs font-medium text-slate-300">
-            {capitalizeWords(job.source)}
-          </span>
+          <ExternalLink size={12} />
+          <span>{capitalizeSentence(job.source.split("_"))}</span>
         </Link>
       </div>
 
       {/* Notes */}
       <div
-        className="my-5 flex-grow cursor-pointer group/notes py-3.5 px-4 rounded-lg bg-slate-800/40 border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all duration-200"
+        className="mt-4 mb-4 grow cursor-pointer py-3 px-3.5 rounded-md bg-slate-800/30 border border-slate-800 hover:border-slate-700 hover:bg-slate-800/50 transition-colors duration-150"
         onClick={() => openNotesModal(job.id)}
       >
-        <div className="flex items-center gap-x-2 mb-2">
-          <Notebook size={14} className="text-slate-400" />
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+        <div className="flex items-center gap-x-1.5 mb-1.5">
+          <Notebook size={12} className="text-slate-500" />
+          <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">
             Notes
           </span>
         </div>
-        <p className="text-[14px] text-slate-300 line-clamp-1 leading-relaxed">
-          {job.notes ? job.notes : <span className="italic text-slate-500">No notes yet...</span>}
+        <p className="text-sm text-slate-300 line-clamp-1">
+          {job.notes ? job.notes : <span className="text-slate-500">No notes yet</span>}
         </p>
-        <span className="text-[13px] text-slate-500 group-hover/notes:text-slate-300 font-medium mt-2 inline-flex items-center transition-colors">
-          Review Notes <span className="ml-1 opacity-0 group-hover/notes:opacity-100 group-hover/notes:translate-x-1 transition-all">→</span>
-        </span>
       </div>
 
-      {/* Footer: date + actions */}
-      <div className="mt-auto pt-4 border-t border-slate-700/60 flex items-center justify-between">
-        <div className="flex items-center gap-x-2 text-slate-400">
-          <Calendar1 size={16} />
-          <span className="text-[13px] sm:text-sm font-medium">
+      {/* Footer */}
+      <div className="mt-auto pt-3.5 border-t border-slate-800 flex items-center justify-between">
+        <div className="flex items-center gap-x-1.5 text-slate-500">
+          <Calendar1 size={14} />
+          <span className="text-xs font-medium">
             {formatDate(job.appliedAt)}
           </span>
         </div>
 
-        <Link
-          className="text-[13px] sm:text-[14px] font-medium text-indigo-400 hover:text-indigo-300 transition-colors relative group/btn"
+        {/* <Link
+          className="text-xs font-medium text-slate-400 hover:text-slate-200 transition-colors relative"
           href={`/dashboard/jobs/${job.id}`}
         >
-          View More
-          {(!job.jobUrl || !job.jobDescription || !job.source) && (
+          View details
+          {missingFields && (
             <span
-              className="absolute -top-1 -right-2 w-2 h-2 rounded-full bg-amber-400 animate-pulse"
+              className="absolute -top-0.5 -right-2 w-1.5 h-1.5 rounded-full bg-amber-400"
               title="Some fields are incomplete"
             />
           )}
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

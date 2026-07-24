@@ -16,19 +16,19 @@ import { JOB_SOURCE, JOB_STATUS, JobStatus } from "@/constants/enums";
 import { JobApplication, JobData, JobDataSchema } from "@/types";
 import Modal from "../../shared/others/Modal";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { capitalizeWords, getTomorrowDate } from "@/utils/utils";
+import { capitalizeSentence, capitalizeWords, getTomorrowDate } from "@/utils/utils";
 
 type JobModalProps = {
   isEdit?: boolean;
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
   handleModalClose: () => void;
-  createorUpdateJob: (data: JobData, id?: number) => void;
+  createorUpdateJob: (data: JobData, id?: string) => void;
   editData: JobData | null;
 };
 
 const childCss =
-  "w-full sm:w-[95%] md:w-full md:max-w-3xl lg:max-w-4xl h-[100dvh] sm:h-[95dvh] md:h-[90vh] rounded-t-xl sm:rounded-xl bg-gray-900 relative flex flex-col shadow-2xl shadow-black/40 border border-gray-800 sm:border-gray-700/60";
+  "w-full sm:w-[95%] md:w-full md:max-w-3xl lg:max-w-4xl h-[100dvh] sm:h-[95dvh] md:h-[90vh] rounded-t-xl sm:rounded-xl bg-gray-900 relative flex flex-col shadow-2xl shadow-black/40 border border-gray-800 sm:border-gray-700/60 text-text";
 
 const JobModal = ({
   isEdit = false,
@@ -53,16 +53,16 @@ const JobModal = ({
   } = useForm<JobData>({
     resolver: zodResolver(JobDataSchema),
     defaultValues: editData ?? {
-      id: 0,
+      id: "",
       companyName: "",
       position: "",
       status: "draft" as JobApplication["status"],
       source: "other" as JobApplication["source"],
       priority: false,
-      appliedAt: currentDate,
       notes: "",
       jobDescription: "",
       jobUrl: "",
+      appliedAt: currentDate,
       createdAt: currentDate,
       updatedAt: currentDate,
     },
@@ -96,31 +96,6 @@ const JobModal = ({
     }
   }, [jobStatusVal, clearErrors, setValue, getValues]);
 
-  //   useEffect(() => {
-  //   if (!isModalOpen) return;
-  //   if (!editData && !isEdit) return;
-
-  //   const timer = setTimeout(() => {
-  //     if (jobStatusVal === "draft") {
-  //       setFocus("status");
-  //       return;
-  //     }
-  //     if(jobStatusVal && !editData?.appliedAt) {
-  //       setFocus("appliedAt");
-  //       return;
-  //     }
-  //     if (!editData?.jobDescription) {
-  //       setFocus("jobDescription");
-  //       return;
-  //     }
-  //     if (!editData?.jobUrl) {
-  //       setFocus("jobUrl");
-  //       return;
-  //     }
-  //   }, 100);
-
-  //   return () => clearTimeout(timer);
-  // }, [isModalOpen, jobStatusVal, editData, setFocus]);
 
   const onSubmit: SubmitHandler<JobData> = (data: JobData) => {
     if (isEdit && editData) {
@@ -136,6 +111,8 @@ const JobModal = ({
     return null;
   }
 
+  console.log(errors)
+  
   return (
     <Modal
       isModalOpen={isModalOpen}
@@ -237,7 +214,7 @@ const JobModal = ({
               {JOB_SOURCE.map((source, idx) => {
                 return (
                   <option key={idx} value={source.toLowerCase()}>
-                    {capitalizeWords(source)}
+                    {capitalizeSentence(source.replace("_"," ").split(" "))}
                   </option>
                 );
               })}

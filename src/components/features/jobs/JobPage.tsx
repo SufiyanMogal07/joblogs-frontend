@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import JobCard from "./JobCard";
-import { JobData } from "@/types";
+import { JobData, userIdType } from "@/types";
 import { BriefcaseBusiness, PlusCircleIcon } from "lucide-react";
 import JobCardSkeleton from "@/components/ui/JobCardSkeleton";
 import { JobStatus } from "@/constants/enums";
@@ -9,12 +9,12 @@ import { JobStatus } from "@/constants/enums";
 type JobPageProps = {
   jobs: JobData[];
   handleModalOpen: (data?: JobData) => void;
-  deleteJob: (id: number) => void;
+  deleteJob: (id: userIdType) => void;
   filter: string;
   searchQuery: string;
   handleFavoriteToggle: (job: JobData) => void;
   handleJobStatus: (job: JobData, status: JobStatus) => void;
-  openNotesModal: (id: number) => void;
+  openNotesModal: (id: userIdType) => void;
 };
 
 const JobPage: React.FC<JobPageProps> = ({
@@ -80,7 +80,7 @@ const JobPage: React.FC<JobPageProps> = ({
               </h3>
 
               <p className="text-sm text-slate-400">
-                We couldn't find any applications matching your current filters. Try adjusting your search.
+                We couldn{"'"}t find any applications matching your current filters. Try adjusting your search.
               </p>
             </div>
           )}
