@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { authLogin } from "@/services/authService";
+import { authLogin } from "@/services/auth.service";
 import { toast } from "sonner";
 
 const LoginForm = () => {
@@ -66,7 +66,7 @@ const LoginForm = () => {
             </p>
           </div>
           <div className="">
-            <label htmlFor="">Password</label>
+            <label className="form-label">Password</label>
             <div className="form-input-container mt-1 items-center">
               <LockKeyhole size={22} />
               <input

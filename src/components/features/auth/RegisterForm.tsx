@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { EyeIcon, EyeOff, LockKeyhole, Mail, User } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { authRegister } from "@/services/authService";
+import { authRegister } from "@/services/auth.service";
 import { toast } from "sonner";
 
 const RegisterForm = () => {
@@ -89,7 +89,7 @@ const RegisterForm = () => {
             </p>
           </div>
           <div className="">
-            <label htmlFor="">Password</label>
+            <label className="form-label">Password</label>
             <div className="form-input-container mt-1 items-center">
               <LockKeyhole size={22} />
               <input
