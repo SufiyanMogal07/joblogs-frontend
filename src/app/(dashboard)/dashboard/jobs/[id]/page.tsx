@@ -4,9 +4,10 @@ import React, { use, useEffect, useState } from "react";
 import { useJobStore } from "@/stores/useJobStore";
 import JobViewPage from "@/components/features/jobs/JobViewPage";
 import JobModal from "@/components/features/jobs/JobModal";
-import { deleteJob as deleteJobApi } from "@/services/jobService";
+import { deleteJob as deleteJobApi } from "@/services/job.service";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { userIdType } from "@/types";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -19,7 +20,7 @@ const Page = ({ params }: PageProps) => {
   const [jobModalOpen, setJobModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const jobId = Number(id);
+  const jobId = String(id);
   const job = jobs.find((j) => j.id === jobId);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const Page = ({ params }: PageProps) => {
     setJobModalOpen(true);
   };
 
-  const handleDelete = async (targetId: number) => {
+  const handleDelete = async (targetId: userIdType) => {
     const deleteFlag = confirm("Are you sure want to delete job application?");
     if (deleteFlag) {
       try {

@@ -1,5 +1,5 @@
 "use client";
-import { authLogout } from "@/services/authService";
+import { authLogout } from "@/services/auth.service";
 import { useUIStore } from "@/stores/useUIStore";
 import { BriefcaseBusiness, DownloadCloud, Home, LogOut, UploadCloud, User } from "lucide-react";
 import Link from "next/link";
@@ -49,10 +49,10 @@ const SideBar = () => {
 
   return (
     <aside
-      className={`h-screen bg-slate-900 border-r border-slate-50/10 flex flex-col transition-all duration-300 ease-in-out shrink-0 ${sidebarWidth}`}
+      className={`h-screen bg-surface border-r border-border/50 flex flex-col transition-all duration-300 ease-in-out shrink-0 ${sidebarWidth}`}
     >
       {/* Brand Header */}
-      <div className="flex items-center justify-center border-b border-slate-50/10 shrink-0 py-4">
+      <div className="flex items-center justify-center border-b border-border/50 shrink-0 py-4">
         <h1 className="font-sans text-amber-500 font-bold text-2xl tracking-tighter">
           {isSidebarOpen ? (
             <span>
@@ -78,7 +78,7 @@ const SideBar = () => {
               ${
                 isActive
                   ? "bg-amber-500/10 text-amber-500 border border-amber-500/20"
-                  : "text-slate-400 hover:bg-slate-800 hover:text-white border-transparent  "
+                  : "text-text hover:bg-background hover:text-white border-transparent "
               }
               ${isSidebarOpen ? "justify-start" : "justify-center"}`}
             >
@@ -99,7 +99,7 @@ const SideBar = () => {
         })}
       </nav>
 
-      <div className="border-t border-slate-50/10 flex justify-center px-5 py-4 md:px-7">
+      <div className="border-t border-border/50 flex justify-center px-5 py-4 md:px-7">
         <button
           onClick={() => {
             const flag = confirm("Are you sure want to logout!");

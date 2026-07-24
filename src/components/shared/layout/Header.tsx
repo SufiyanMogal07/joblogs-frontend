@@ -18,12 +18,11 @@ import Popup from "@/components/ui/Popup";
 import { useStore } from "zustand";
 import { useUIStore } from "@/stores/useUIStore";
 import { useJobStore } from "@/stores/useJobStore";
-import { searchJob } from "@/services/jobService";
+import { searchJob } from "@/services/job.service";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { authLogout } from "@/services/authService";
+import { authLogout } from "@/services/auth.service";
 import { capitalizeSentence, capitalizeWords } from "@/utils/utils";
 import { useUserStore } from "@/stores/useUserStore";
-import { getUserProfile } from "@/services/userService";
 
 const Header = () => {
   const { isSidebarOpen, toggleSidebar, isMobile } = useStore(useUIStore);
@@ -105,11 +104,11 @@ const Header = () => {
 
   return (
     <header
-      className={`flex items-center justify-between bg-slate-900/90 px-2.5 md:px-4 lg:px-6 py-2 border border-slate-50/10 transition-all duration-500 ease-in-out relative`}
+      className={`bg-surface flex items-center justify-between px-2.5 md:px-4 lg:px-6 py-2 border border-border/50 transition-all duration-500 ease-in-out relative`}
     >
       <ChevronsRight
         onClick={toggleSidebar}
-        className={`text-blue-100 shrink-0 ${isSidebarOpen && "rotate-180"}`}
+        className={`text-text shrink-0 ${isSidebarOpen && "rotate-180"}`}
         size={isMobile ? 25 : 26}
       />
 
@@ -117,7 +116,7 @@ const Header = () => {
         className={`relative min-w-20 max-w-60 w-full md:max-w-sm ${isSidebarOpen ? "hidden md:block" : "block"}`}
       >
         <div
-          className="flex-2 flex items-center gap-x-2 px-2 md:px-6 py-2 bg-slate-800/80 relative rounded-xl"
+          className="flex-2 flex items-center gap-x-2 px-2 md:px-6 py-2 bg-background border-border/50 focus:border-border-hover/50 relative rounded-xl"
           ref={searchBarRef}
           onClick={() => {
             if (search.length > 0) {
@@ -125,10 +124,10 @@ const Header = () => {
             }
           }}
         >
-          <Search />
+          <Search className="text-text"/>
           <input
             type="search"
-            className="text-[16px] placeholder:text-white w-full focus:outline-none"
+            className="text-[16px] text-text placeholder:text-text w-full focus:outline-none"
             placeholder="Search job applications..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -138,12 +137,12 @@ const Header = () => {
           isOpen={searchPopupOpen}
           onClose={() => setSearchPopupOpen(false)}
           anchorRef={searchBarRef}
-          popupCss="top-16 left-0 md:w-80 bg-slate-700/60 backdrop-blur-md transition-all duration-400 ease-in-out"
+          popupCss="top-16 left-0 md:w-80 backdrop-blur-md transition-all duration-400 ease-in-out"
         >
           {jobSuggestion.map((val: JobData, idx) => {
             return (
               <div
-                className="px-5 py-2.5 text-[15px] hover:bg-slate-600/80 cursor-pointer"
+                className="px-5 py-2.5 text-[15px] cursor-pointer"
                 key={idx}
                 onClick={() => handleSearchSubmit(val)}
               >
@@ -167,13 +166,13 @@ const Header = () => {
         <button
           ref={profileRef}
           onClick={() => setProfilePopupOpen((prev) => !prev)}
-          className={`flex gap-x-1 md:gap-x-3 p-2 px-4 rounded-4xl items-center hover:bg-slate-800/70 transition-colors ${profilePopupOpen && "bg-slate-800/70"}`}
+          className={`flex gap-x-1 md:gap-x-3 p-2 px-4 rounded-4xl items-center hover:bg-background transition-colors ${profilePopupOpen && "bg-background"}`}
         >
-          <span className="bg-blue-500 w-7 md:w-8 aspect-square rounded-full flex items-center justify-center">
+          <span className="bg-blue-500 text-white w-7 md:w-8 aspect-square rounded-full flex items-center justify-center">
             {user?.name?.[0]}
           </span>
           <ChevronDown
-            className={`transition-all duration-300 ${profilePopupOpen ? "rotate-180" : ""}`}
+            className={`transition-all duration-300 text-white ${profilePopupOpen ? "rotate-180" : ""}`}
           />
         </button>
       </div>
@@ -181,7 +180,7 @@ const Header = () => {
         isOpen={profilePopupOpen}
         onClose={() => setProfilePopupOpen(false)}
         anchorRef={profileRef}
-        popupCss="bg-slate-800/50 backdrop-blur-md top-20 right-4 w-48"
+        popupCss="bg-slate-800/80 top-20 right-4 w-48"
       >
         <button
           className="flex items-center gap-x-4"

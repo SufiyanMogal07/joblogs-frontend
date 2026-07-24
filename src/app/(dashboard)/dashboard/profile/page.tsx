@@ -1,5 +1,5 @@
 "use client";
-import { getUserProfile, updateUserProfile } from "@/services/userService";
+import { getUserProfile, updateUserProfile } from "@/services/user.service";
 import { useUserStore } from "@/stores/useUserStore";
 import { UserProfile, UserProfileSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,10 +9,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const Page = () => {
-  const {setUser,user} = useUserStore();
+  const { setUser, user } = useUserStore();
   const [profileData, setProfileData] = useState(user);
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
-  const { register, handleSubmit,reset } = useForm<UserProfile>({
+  const { register, handleSubmit, reset } = useForm<UserProfile>({
     resolver: zodResolver(UserProfileSchema),
     values: {
       name: profileData?.name || "",
@@ -25,7 +25,7 @@ const Page = () => {
 
     if (result.success && result.data) {
       setUser(result.data);
-      reset(result.data)
+      reset(result.data);
     }
   };
 
@@ -42,15 +42,15 @@ const Page = () => {
       }
     } catch (err) {
     } finally {
-      getProfileData()
+      getProfileData();
       setIsFormEdit(false);
     }
   };
 
   return (
-    <div className="w-full h-full flex justify-center px-2 py-2">
+    <div className="w-full h-full flex justify-center px-2 py-2 text-text">
       <form
-        className="bg-slate-950/10 border border-slate-50/10 shadow-lg rounded-xl w-150 h-full py-8 px-3 md:px-15 flex flex-col justify-between"
+        className="border border-border shadow-xl rounded-xl w-150 h-full py-8 px-3 md:px-15 flex flex-col justify-around"
         onSubmit={(e) => e.preventDefault()}
       >
         <div>
@@ -107,18 +107,21 @@ const Page = () => {
           )}
         </div>
 
-        <button
-          onClick={() => {
-            if (!isFormEdit) {
-              setIsFormEdit(true);
-            } else {
-              handleSubmit(onSubmit)();
-            }
-          }}
-          className={`p-2 rounded-md font-bold text-[15px] w-[90%] self-center ${isFormEdit ? "bg-indigo-600" : "bg-indigo-600/80"}`}
-        >
-          {isFormEdit ? "Save Changes " : "Edit Profile"}
-        </button>
+        <div className="flex gap-x-6 px-4 mt-25">
+          {isFormEdit && <button className="p-2 rounded-md font-bold text-[15px] flex-1 self-center bg-red-500" onClick={() => setIsFormEdit(false)}>Cancel</button>}
+          <button
+            onClick={() => {
+              if (!isFormEdit) {
+                setIsFormEdit(true);
+              } else {
+                handleSubmit(onSubmit)();
+              }
+            }}
+            className={`p-2 rounded-md font-bold text-[15px] flex-1 self-center ${isFormEdit ? "bg-indigo-600" : "bg-indigo-600/80"}`}
+          >
+            {isFormEdit ? "Save Changes " : "Edit Profile"}
+          </button>
+        </div>
       </form>
     </div>
   );
