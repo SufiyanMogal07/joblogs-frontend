@@ -42,8 +42,6 @@ const JobCard: React.FC<JobCardProps> = ({
 
   const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
-  const missingFields = !job.jobUrl || !job.jobDescription || !job.source;
-
   return (
     <div
       className={`relative flex flex-col h-full font-sans group bg-card border border-border/60 rounded-lg p-5 sm:p-6 transition-colors duration-150 ${
