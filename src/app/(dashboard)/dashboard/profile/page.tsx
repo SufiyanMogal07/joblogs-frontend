@@ -1,7 +1,7 @@
 "use client";
 import { getUserProfile, updateUserProfile } from "@/services/user.service";
 import { useUserStore } from "@/stores/useUserStore";
-import { UserProfile, UserProfileSchema } from "@/types";
+import { UserProfile, UserProfileSchema } from "@/types/auth.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Info, Mail, User, User2 } from "lucide-react";
 import { useEffect, useState } from "react";

@@ -1,15 +1,9 @@
 "use client";
-import { JobData } from "@/types";
+import { JobData } from "@/types/job.type";
 import {
-  Bell,
   ChevronDown,
-  ChevronRight,
   ChevronsRight,
-  Kanban,
-  LayoutDashboard,
   LogOut,
-  PanelRight,
-  Plus,
   Search,
   User,
 } from "lucide-react";
@@ -19,9 +13,9 @@ import { useStore } from "zustand";
 import { useUIStore } from "@/stores/useUIStore";
 import { useJobStore } from "@/stores/useJobStore";
 import { searchJob } from "@/services/job.service";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { authLogout } from "@/services/auth.service";
-import { capitalizeSentence, capitalizeWords } from "@/utils/utils";
+import { capitalizeSentence } from "@/utils/utils";
 import { useUserStore } from "@/stores/useUserStore";
 
 const Header = () => {
@@ -102,6 +96,7 @@ const Header = () => {
     );
   }, [companyName, position]);
 
+
   return (
     <header
       className={`bg-surface flex items-center justify-between px-2.5 md:px-4 lg:px-6 py-2 border border-border/50 transition-all duration-500 ease-in-out relative`}
@@ -139,7 +134,9 @@ const Header = () => {
           anchorRef={searchBarRef}
           popupCss="top-16 left-0 md:w-80 backdrop-blur-md transition-all duration-400 ease-in-out"
         >
-          {jobSuggestion.map((val: JobData, idx) => {
+          {jobSuggestion.length === 0 ? (<span className="px-4 py-3 text-[16px]">
+              No Job Application Found!
+            </span>) : (jobSuggestion.map((val: JobData, idx) => {
             return (
               <div
                 className="px-5 py-2.5 text-[15px] cursor-pointer"
@@ -151,17 +148,13 @@ const Header = () => {
                 </span>
               </div>
             );
-          })}
-          {jobSuggestion.length === 0 && (
-            <span className="px-4 py-3 text-[16px]">
-              No Job Application Found!
-            </span>
-          )}
+          }))}
+         
+         
         </Popup>
       </div>
 
       <div className="flex items-center gap-x-8 shrink-0">
-        {/* <Bell size={20} /> */}
 
         <button
           ref={profileRef}
