@@ -6,7 +6,9 @@ import {
   getJobs,
   updateJob,
 } from "@/services/job.service";
-import { JobData, responseType, userIdType } from "@/types";
+import { responseType } from "@/types";
+import { userIdType } from "@/types/auth.type";
+import { JobData } from "@/types/job.type";
 import { toast } from "sonner";
 import { create } from "zustand";
 
@@ -25,7 +27,6 @@ interface JobStore {
   updateJob: (job: JobData) => void;
   deleteJob: (id: userIdType) => Promise<void>;
   confirmStatusUpdateWithDate: (appliedDate: string) => Promise<void>;
-  // getJobMetaData: () => Promise<void>;
   clearDateData: () => void;
   clearJobState: () => void;
 }
