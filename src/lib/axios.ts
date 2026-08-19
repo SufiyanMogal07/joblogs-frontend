@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     if (axios.isAxiosError(error)) {
-      const message = error.response?.data?.message ?? "Something went wrong!";
+      const message = error.response?.data?.message ?? "Server Not Responding";
 
       toast.error(message);
     }
