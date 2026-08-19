@@ -1,4 +1,3 @@
-import { JobData } from "@/types";
 import React, { useEffect } from "react";
 
 type ModalProps = {

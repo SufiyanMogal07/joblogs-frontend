@@ -1,22 +1,14 @@
 "use client";
 
 import React from "react";
-import { JobData, userIdType } from "@/types";
-import { capitalizeWords, formatDate, getStatusBadgeCss } from "@/utils/utils";
+import { getStatusBadgeCss } from "@/utils/utils";
 import {
   ArrowLeft,
-  Calendar,
-  Clock,
-  Edit2,
-  ExternalLink,
-  FileText,
-  Link2,
-  Notebook,
   Star,
-  Trash2,
 } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { JobData } from "@/types/job.type";
+import { userIdType } from "@/types/auth.type";
 
 interface JobViewPageProps {
   job?: JobData | null;

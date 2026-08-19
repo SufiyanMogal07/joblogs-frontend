@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/lib/axios";
-import { ApiResponse, UserProfile } from "@/types";
+import { ApiResponse } from "@/types";
+import { UserProfile } from "@/types/auth.type";
 
 export const getUserJobMetrics = async (): ApiResponse =>
   await axiosInstance.get("/user/metrics");
