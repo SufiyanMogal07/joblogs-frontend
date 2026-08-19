@@ -2,12 +2,13 @@
 
 import React, { use, useEffect, useState } from "react";
 import { useJobStore } from "@/stores/useJobStore";
-import JobViewPage from "@/components/features/jobs/JobViewPage";
-import JobModal from "@/components/features/jobs/JobModal";
 import { deleteJob as deleteJobApi } from "@/services/job.service";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { userIdType } from "@/types";
+
+import JobViewPage from "@/components/features/jobs/page/JobViewPage";
+import JobModal from "@/components/features/jobs/modal/JobModal";
+import { userIdType } from "@/types/auth.type";
 
 type PageProps = {
   params: Promise<{ id: string }>;

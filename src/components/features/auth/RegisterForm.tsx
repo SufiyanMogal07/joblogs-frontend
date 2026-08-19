@@ -1,7 +1,7 @@
 "use client";
 import AuthCard from "@/components/features/auth/AuthCard";
 import { useForm } from "react-hook-form";
-import { registerSchema, registerValues, responseType } from "@/types";
+import { responseType } from "@/types";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -9,15 +9,14 @@ import { EyeIcon, EyeOff, LockKeyhole, Mail, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { authRegister } from "@/services/auth.service";
 import { toast } from "sonner";
+import { registerSchema, registerValues } from "@/types/auth.type";
 
 const RegisterForm = () => {
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
     reset,
-    setFocus,
   } = useForm<registerValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -39,10 +38,9 @@ const RegisterForm = () => {
       if (response.success) {
         toast.success(response.message);
         router.push("/dashboard");
-      } else {
-        toast.error(response.message);
       }
     } catch (error) {
+       reset({});
     } finally {
       reset();
       setLoading(false);

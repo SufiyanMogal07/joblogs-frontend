@@ -1,9 +1,9 @@
 "use client";
 import { useJobStore } from "@/stores/useJobStore";
 import React, { useEffect } from "react";
-import Modal from "@/components/shared/others/Modal";
 import { Calendar } from "lucide-react";
 import { useForm } from "react-hook-form";
+import Modal from "@/components/shared/others/Modal";
 
 interface JobDate {
   appliedAt: string;

@@ -1,10 +1,15 @@
 import { axiosInstance } from "@/lib/axios";
-import { ApiResponse, JobApplication, JobData, userIdType } from "@/types";
+import { ApiResponse } from "@/types";
+import { userIdType } from "@/types/auth.type";
+import { filterDataType, JobApplication, JobData } from "@/types/job.type";
 
-// export const getJobMetaData = async () => await axiosInstance.get("/jobs/meta-data");
 
 export const createJob = async (data: JobApplication): ApiResponse =>
   await axiosInstance.post("/jobs", data);
+
+export const getJobSortData = async (): ApiResponse => await axiosInstance.get("/jobs/sort-data");
+
+export const getJobFilterData = async (): Promise<filterDataType> => await axiosInstance.get("/jobs/meta-data") ;
 
 export const getJobs = async (query?: string): ApiResponse<JobData[]> =>
   await axiosInstance.get(`/jobs${query ? `?${query}` : ""}`);
@@ -26,5 +31,5 @@ export const searchJob = async (query: string) => {
   if (query.length < 3) return;
 
   const result = await axiosInstance.get(`/jobs/search?q=${query}`);
-  return result.data ?? result;
+  return result.data || result;
 };

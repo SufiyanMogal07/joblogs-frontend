@@ -6,17 +6,28 @@ import {
   getJobs,
   updateJob,
 } from "@/services/job.service";
-import { JobData, responseType, userIdType } from "@/types";
+import { responseType } from "@/types";
+import { userIdType } from "@/types/auth.type";
+import { JobData } from "@/types/job.type";
 import { toast } from "sonner";
 import { create } from "zustand";
 
+// todo : #1 priority high
+// add error state and it fnc whenever error occurs in job we have to set the error object with is there any error and message. shape of object is : {isError: boolean, message: string}
+// seperate this states and function in hooks and different file
+
+// interface errorMessageType {
+//   isError: boolean;
+//   message: string;
+// }
+
 interface JobStore {
+  // jobs
   jobs: JobData[];
-  datePopup: boolean;
-  pendingStatusUpdate?: { job: JobData; status: JobStatus } | null;
   isLoading: boolean;
   search: string;
-  setDatePopupClose: () => void;
+  // error?: errorMessageType;
+  // setError?: (err: errorMessageType) => void;
   setSearch: (query: string) => void;
   fetchJobs: (query?: string) => Promise<void>;
   handlePriority: (job: JobData) => Promise<void>;
@@ -24,21 +35,23 @@ interface JobStore {
   createJob: (job: JobData) => void;
   updateJob: (job: JobData) => void;
   deleteJob: (id: userIdType) => Promise<void>;
-  confirmStatusUpdateWithDate: (appliedDate: string) => Promise<void>;
-  // getJobMetaData: () => Promise<void>;
-  clearDateData: () => void;
   clearJobState: () => void;
+
+  // ui
+  datePopup: boolean;
+  setDatePopupClose: () => void;
+  confirmStatusUpdateWithDate: (appliedDate: string) => Promise<void>;
+  pendingStatusUpdate?: { job: JobData; status: JobStatus } | null;
+  clearDateData: () => void;
 }
 
 export const useJobStore = create<JobStore>((set, get) => ({
+  // jobs
   jobs: [] as JobStore["jobs"],
-  datePopup: false,
   isLoading: false,
   search: "",
-  setDatePopupClose: () => set({ datePopup: false }),
   setSearch: (query) => {
     if (typeof query !== "string") return;
-
     set({ search: query });
   },
   fetchJobs: async (query?: string) => {
@@ -51,7 +64,6 @@ export const useJobStore = create<JobStore>((set, get) => ({
         const cleaned = rawData?.map((job) => {
           return {
             ...job,
-            appliedAt: job.appliedAt?.split("T")[0],
           };
         });
         set({ jobs: cleaned });
@@ -59,6 +71,7 @@ export const useJobStore = create<JobStore>((set, get) => ({
         toast.error(result.message);
       }
     } catch (error) {
+      
     } finally {
       set({ isLoading: false });
     }
@@ -76,12 +89,6 @@ export const useJobStore = create<JobStore>((set, get) => ({
     })();
 
     withToast(promise);
-
-    // toast.promise(promise, {
-    //   loading: "Updating priority...",
-    //   success: (message) => message,
-    //   error: (err) => err.message,
-    // });
   },
   handleJobStatus: async (job, status) => {
     if (status !== "draft" && !job.appliedAt) {
@@ -145,6 +152,11 @@ export const useJobStore = create<JobStore>((set, get) => ({
       }
     }
   },
+  clearJobState: () => set({ jobs: [], isLoading: false }),
+
+  // ui
+  datePopup: false,
+  setDatePopupClose: () => set({ datePopup: false }),
   confirmStatusUpdateWithDate: async (appliedDate) => {
     const { pendingStatusUpdate } = get();
     if (!pendingStatusUpdate) return;
@@ -166,5 +178,4 @@ export const useJobStore = create<JobStore>((set, get) => ({
     } catch (error) {}
   },
   clearDateData: () => set({ datePopup: false, pendingStatusUpdate: null }),
-  clearJobState: () => set({ jobs: [], isLoading: false }),
 }));

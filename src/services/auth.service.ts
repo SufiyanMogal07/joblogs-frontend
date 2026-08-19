@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/lib/axios";
-import { ApiResponse, loginValues, registerValues } from "@/types";
+import { ApiResponse } from "@/types";
+import { loginValues, registerValues } from "@/types/auth.type";
 
 export const authRegister = async (data: registerValues) : ApiResponse  => {
   return await axiosInstance.post("/auth/register", data);

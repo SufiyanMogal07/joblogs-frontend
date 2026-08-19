@@ -37,7 +37,7 @@ const StatCard = ({ label, status, count }: StatCardProps) => {
         {count}
       </h3>
       <Link
-        href={"/dashboard/jobs"}
+        href={`/dashboard/jobs${status!=="total" ? `?status=${status}` : ""}`}
         className="text-sm md:text-base font-bold text-slate-400 hover:underline"
       >
         View More
@@ -76,6 +76,7 @@ const Page = () => {
         toast.error(result.message);
       }
     } catch (err) {
+      console.error(err);
     } finally {
       setTimeout(() => setLoading(false), 1000);
     }
@@ -87,7 +88,7 @@ const Page = () => {
 
   if (loading) {
     return (
-      <div className="dashboard-metrics flex flex-col md:flex-row gap-7 p-6">
+      <div className="dashboard-metrics flex flex-col items-center md:flex-row gap-7 p-6">
         {Array.from({ length: 6 }).map((_, idx) => {
           return <StatCardSkeleton key={idx} />;
         })}

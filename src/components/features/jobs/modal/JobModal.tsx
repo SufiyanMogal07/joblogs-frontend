@@ -13,10 +13,10 @@ import {
 import React, { useEffect, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { JOB_SOURCE, JOB_STATUS, JobStatus } from "@/constants/enums";
-import { JobApplication, JobData, JobDataSchema } from "@/types";
-import Modal from "../../shared/others/Modal";
+import { JobApplication, JobData, JobDataSchema } from "@/types/job.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { capitalizeSentence, capitalizeWords, getTomorrowDate } from "@/utils/utils";
+import Modal from "@/components/shared/others/Modal";
 
 type JobModalProps = {
   isEdit?: boolean;

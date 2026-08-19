@@ -18,6 +18,10 @@ export const getTomorrowDate = () => {
   return tomorrow.toISOString().split("T")[0];
 };
 
+export const cleanUnderScore = (word: string) => {
+  return word.replaceAll("_"," ");
+}
+
 export const capitalizeWords = (str: string) => {
   return str[0].toUpperCase() + str.slice(1);
 };
