@@ -1,7 +1,8 @@
 "use client";
 import Popup from "@/components/ui/Popup";
 import { editableJobStatus, JobStatus } from "@/constants/enums";
-import { JobData, userIdType } from "@/types";
+import { userIdType } from "@/types/auth.type";
+import { JobData } from "@/types/job.type";
 import { capitalizeSentence, capitalizeWords, formatDate, getStatusBadgeCss } from "@/utils/utils";
 import {
   ArrowBigDown,
