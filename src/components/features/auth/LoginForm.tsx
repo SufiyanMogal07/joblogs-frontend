@@ -1,6 +1,5 @@
 "use client";
 import AuthCard from "@/components/features/auth/AuthCard";
-import { loginSchema, loginValues } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import Link from "next/link";
@@ -9,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { authLogin } from "@/services/auth.service";
 import { toast } from "sonner";
+import { loginSchema, loginValues } from "@/types/auth.type";
 
 const LoginForm = () => {
   const {
@@ -36,10 +36,9 @@ const LoginForm = () => {
       if (response.success) {
         toast.success(response.message);
         router.push("/dashboard");
-      } else {
-        toast.error(response.message);
-      }
+      } 
     } catch (error) {
+       reset({});
     } finally {
       setLoading(false);
     }
