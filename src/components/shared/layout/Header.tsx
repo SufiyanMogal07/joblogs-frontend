@@ -132,18 +132,18 @@ const Header = () => {
           isOpen={searchPopupOpen}
           onClose={() => setSearchPopupOpen(false)}
           anchorRef={searchBarRef}
-          popupCss="top-16 left-0 md:w-80 backdrop-blur-md transition-all duration-400 ease-in-out"
+          popupCss="top-16 left-0 w-full backdrop-blur-md transition-all duration-400 ease-in-out"
         >
           {jobSuggestion.length === 0 ? (<span className="px-4 py-3 text-[16px]">
               No Job Application Found!
             </span>) : (jobSuggestion.map((val: JobData, idx) => {
             return (
               <div
-                className="px-5 py-2.5 text-[15px] cursor-pointer"
+                className="px-8 py-3 cursor-pointer"
                 key={idx}
                 onClick={() => handleSearchSubmit(val)}
               >
-                <span className="text-base font-medium">
+                <span className="text-[15px] font-medium">
                   {val.companyName} - {val.position}
                 </span>
               </div>
