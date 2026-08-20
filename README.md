@@ -42,7 +42,8 @@ Managing job applications across multiple job boards can quickly become difficul
 ### Search & Filtering
 
 - Global search
-- Quick filtering
+- Quick filtering based on Job Status, Job Source
+- Sort Based on Newest Added (default), Oldest Added, Recently Updated, Company A–Z, Company Z–A, Priority First
 
 ### User Experience
 
@@ -168,7 +169,7 @@ Building JobLog helped me gain experience with:
 
 Upcoming features and project decisions will be documented separately.
 
-- `docs/FUTURE_FEATURES.md`
+- `docs/FEATURES.md`
 - `docs/DECISIONS.md`
 
 ---
