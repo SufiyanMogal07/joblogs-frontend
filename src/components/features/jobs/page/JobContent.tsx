@@ -1,6 +1,6 @@
 "use client";
 import { Briefcase, Plus, RotateCcw, SearchX, SortAsc} from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useJobStore } from "@/stores/useJobStore";
 import { JobData } from "@/types/job.type";
 import JobPage from "@/components/features/jobs/page/JobPage";
@@ -181,7 +181,7 @@ const JobContent = ({ query }: JobsContentType) => {
               menuLabel="Sort By"
               menuIcon={SortAsc}
               menuData={sortType}
-              menuCss=""
+              menuCss="left-0 top-12"
             />
 
             <JobActionMenu
@@ -191,7 +191,7 @@ const JobContent = ({ query }: JobsContentType) => {
               menuLabel="Filter By"
               menuIcon={SortAsc}
               menuData={filterType}
-              menuCss="left-0"
+              menuCss="left-0 top-12"
             />
             
             <button

@@ -46,20 +46,17 @@
   --color-status-rejected: #94a3b8;
 }
 
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: var(--foreground);
 }
 
-
 /* Input's and Modal's Scroll css */
-input[type='date']::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
 @layer base {
-
   .notes-modal::-webkit-scrollbar,
   #jobForm::-webkit-scrollbar {
     width: 8px;
@@ -78,13 +75,11 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 }
 
-
 /* auth login and register css */
 @layer base {
   .auth-btn {
     @apply w-full mt-6 px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold rounded-lg transition-colors duration-200 disabled:bg-indigo-600;
   }
-
 }
 
 /* layout and auth/job form css */
@@ -140,20 +135,33 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
   .popup {
-    @apply absolute z-100 backdrop-blur-lg text-text border border-slate-700 rounded-xl shadow-2xl w-52 flex flex-col right-0 top-10 overflow-hidden font-medium max-h-50 overflow-y-auto bg-slate-800/70;
+    @apply absolute z-100 backdrop-blur-lg text-text border border-slate-700 rounded-xl shadow-2xl w-52 flex flex-col right-0 top-10 overflow-hidden font-medium overflow-y-auto bg-slate-800/70;
     @apply divide-y divide-slate-700;
     animation: dropdown-in 0.15s ease-out;
   }
 
   .popup::-webkit-scrollbar {
-    display: none
+    width: 5px;
+  }
+
+  .popup::-webkit-scrollbar-track {
+    margin-block: 8px;
+    background: transparent;
+  }
+
+  .popup::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.7);
+    border-radius: 9999px;
+  }
+
+  .popup::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.8);
   }
 
   .popup > * {
-    @apply py-3 px-4 text-[14px] md:text-[16px] text-text font-medium text-left transition-colors duration-150;
-    @apply bg-inherit hover:bg-slate-700 backdrop-blur-md hover:text-white;
+    @apply py-3 px-4 text-[14px] text-text font-medium text-left transition-colors duration-150;
+    @apply bg-slate-800 hover:bg-slate-700 backdrop-blur-md hover:text-white;
   }
-
 
   .scrollbar-hide::-webkit-scrollbar,
   .dashboard-metrics::-webkit-scrollbar {
@@ -171,8 +179,6 @@ input[type='date']::-webkit-calendar-picker-indicator {
       transform: translateY(0) scale(1);
     }
   }
-
-
 
   .jobcard-dropdown button:first-child {
     @apply rounded-t-xl;
@@ -193,10 +199,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   }
 
   .animate-shimmer {
-    background: linear-gradient(90deg,
-        #1e293b 25%,
-        #334155 37%,
-        #1e293b 63%);
+    background: linear-gradient(90deg, #1e293b 25%, #334155 37%, #1e293b 63%);
     background-size: 1000px 100%;
     animation: shimmer 1.4s infinite linear;
   }
@@ -207,13 +210,12 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .dashboard-btn {
-  @apply flex items-center justify-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1.5 text-xs md:text-sm font-medium text-slate-200 bg-slate-800/40 border border-slate-700/60 hover:bg-slate-700/80 hover:border-slate-500 active:translate-y-px rounded-md transition-all duration-200;
+  @apply flex items-center justify-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1.5 text-xs md:text-sm font-medium text-slate-200 bg-slate-800 border border-slate-700/60 hover:bg-slate-700/80 hover:border-slate-500 active:translate-y-px rounded-md transition-all duration-200;
 }
 
 .datepopup-btn {
   @apply px-2.5 py-0.5 rounded;
 }
-
 
 [data-sonner-toast] {
   align-items: center !important;

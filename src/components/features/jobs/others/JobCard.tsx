@@ -84,7 +84,7 @@ const JobCard: React.FC<JobCardProps> = ({
           </button>
         </div>
 
-        <Popup isOpen={isPopupOpen} onClose={closePopup} anchorRef={toggleRef}>
+        <Popup isOpen={isPopupOpen} onClose={closePopup} anchorRef={toggleRef} popupCss="max-h-60 md:max-h-80">
           <button
             onClick={() => {
               handleFavoriteToggle(job);

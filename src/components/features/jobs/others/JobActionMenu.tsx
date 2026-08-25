@@ -48,7 +48,7 @@ const JobActionMenu = ({
         isOpen={isMenuOpen}
         onClose={() => setMenuOpen(false)}
         anchorRef={menuRef}
-        popupCss={`md:top-16 md:left-0 w-45 backdrop-blur-md transition-all duration-400 ease-in-out ${menuCss}`}
+        popupCss={`md:top-16 md:left-0 w-45 backdrop-blur-md transition-all duration-400 ease-in-out max-h-50 ${menuCss}`}
       >
         {menuData.map((item,index) => {
 
