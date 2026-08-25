@@ -47,7 +47,7 @@ const JobCardSkeleton = () => {
         <div className="flex items-center gap-x-2">
           <SkeletonBlock className="h-3 w-20" />
         </div>
-        {/* <SkeletonBlock className="h-6 w-6 rounded-md" /> */}
+        <SkeletonBlock className="h-3 w-10 rounded-md" />
       </div>
     </div>
   );

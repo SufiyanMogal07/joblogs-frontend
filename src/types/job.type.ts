@@ -36,8 +36,6 @@ export const JobApplicationSchema = z
         error: () => ({ message: "Applied Date is required" }),
       })
       .optional(),
-    createdAt: z.string(),
-    updatedAt: z.string(),
   })
   .superRefine((data, ctx) => {
     if (data.status !== "draft" && !data.appliedAt) {

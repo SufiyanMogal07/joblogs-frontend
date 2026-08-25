@@ -41,6 +41,9 @@ const JobCard: React.FC<JobCardProps> = ({
     return editableJobStatus.filter((status) => status !== job.status);
   }, [job.status]);
 
+
+  const missingFields = !job.notes || !job.jobDescription || !job.jobUrl
+
   const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
   return (
@@ -186,18 +189,18 @@ const JobCard: React.FC<JobCardProps> = ({
           </span>
         </div>
 
-        {/* <Link
+        <Link
           className="text-xs font-medium text-slate-400 hover:text-slate-200 transition-colors relative"
           href={`/dashboard/jobs/${job.id}`}
         >
           View details
           {missingFields && (
             <span
-              className="absolute -top-0.5 -right-2 w-1.5 h-1.5 rounded-full bg-amber-400"
+              className="absolute -top-1 -right-2.5 w-2 h-2 rounded-full bg-amber-400"
               title="Some fields are incomplete"
             />
           )}
-        </Link> */}
+        </Link>
       </div>
     </div>
   );

@@ -53,7 +53,7 @@ const JobModal = ({
   } = useForm<JobData>({
     resolver: zodResolver(JobDataSchema),
     defaultValues: editData ?? {
-      id: "",
+      // id: "",
       companyName: "",
       position: "",
       status: "draft" as JobApplication["status"],
@@ -63,8 +63,6 @@ const JobModal = ({
       jobDescription: "",
       jobUrl: "",
       appliedAt: currentDate,
-      createdAt: currentDate,
-      updatedAt: currentDate,
     },
   });
 
