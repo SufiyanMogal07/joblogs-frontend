@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { getStatusBadgeCss } from "@/utils/utils";
+import { formatDate, getStatusBadgeCss } from "@/utils/utils";
 import {
   ArrowLeft,
   BriefcaseBusiness,
@@ -234,7 +234,7 @@ const JobViewPage: React.FC<JobViewPageProps> = ({ job, onEdit, onDelete }) => {
                 </p>
                 <p className="text-sm font-medium text-slate-200">
                   {job.appliedAt
-                    ? job.appliedAt.split("T")[0]
+                    ? formatDate(job.appliedAt.split("T")[0])
                     : "Not specified"}
                 </p>
               </div>

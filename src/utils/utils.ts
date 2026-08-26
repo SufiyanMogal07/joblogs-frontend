@@ -9,7 +9,7 @@ export const formatDate = (date?: string) => {
     year: "numeric",
   });
 
-  return "Applied on " + newDate
+  return  newDate
 };
 
 export const getTomorrowDate = () => {
