@@ -12,3 +12,9 @@ export const getUserProfile = async (): ApiResponse => {
 export const updateUserProfile = async (data: UserProfile): ApiResponse => {
   return axiosInstance.patch("/user/profile", data);
 };
+
+export const updateEmailNotification = async (data: {
+  isEnabled: boolean;
+}): ApiResponse<{ emailNotification: boolean }> => {
+  return axiosInstance.patch("/notifications/email",data);
+};

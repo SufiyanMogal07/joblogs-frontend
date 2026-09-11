@@ -3,6 +3,7 @@ import { create } from "zustand";
 export interface User {
   name: string;
   email: string;
+  emailNotification: boolean;
 }
 
 interface UserStore {

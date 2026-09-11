@@ -1,7 +1,7 @@
 "use client";
 import { authLogout } from "@/services/auth.service";
 import { useUIStore } from "@/stores/useUIStore";
-import { BriefcaseBusiness, DownloadCloud, Home, LogOut, UploadCloud, User } from "lucide-react";
+import { BriefcaseBusiness, Home, LogOut, Settings, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // New import
 import { useRouter } from "next/navigation";
@@ -18,7 +18,7 @@ const SideBar = () => {
     { id: 1, name: "Home", icon: Home, url: "/dashboard" },
     { id: 2, name: "Jobs", icon: BriefcaseBusiness, url: "/dashboard/jobs" },
     { id: 3, name: "Profile", icon: User, url: "/dashboard/profile" },
-   
+    { id: 4, name: "Settings", icon: Settings, url: "/dashboard/settings" },
   ];
 
   const logOut = async () => {
