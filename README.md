@@ -45,6 +45,13 @@ Managing job applications across multiple job boards can quickly become difficul
 - Quick filtering based on Job Status, Job Source
 - Sort Based on Newest Added (default), Oldest Added, Recently Updated, Company A–Z, Company Z–A, Priority First
 
+### Email Notifications
+
+- Send reminders for draft jobs that have not been updated for 3 days
+- Notify users when an application has been inactive for 30 days
+- Remind users when an application has had no response for 60 days and suggest marking it as ghosted
+- Allow users to enable or disable email notifications
+
 ### User Experience
 
 - Responsive design
