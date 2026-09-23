@@ -12,6 +12,14 @@ This repository contains the frontend application built with **Next.js**, **Reac
 
 ---
 
+## Demo
+
+For a complete walkthrough of the application, including job management, filtering, dashboard analytics, and notifications, watch the demo video:
+
+🎥 Demo Video: [https://lnkd.in/p/d6JPmmh2](https://lnkd.in/p/d6JPmmh2)
+
+---
+
 ## Overview
 
 Managing job applications across multiple job boards can quickly become difficult. JobLog provides a single place to manage applications, monitor progress, and keep important notes throughout the job search.
